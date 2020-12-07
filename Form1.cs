@@ -139,9 +139,9 @@ namespace blank2
                 {
                     return;
                 }
-                textBox1.SelectionStart = 0;
-                textBox1.SelectionLength = 0;
-                textBox1.ScrollToCaret();
+                //textBox1.SelectionStart = 0;
+                //textBox1.SelectionLength = 0;
+                //textBox1.ScrollToCaret();
 
             }
             else
@@ -288,6 +288,8 @@ namespace blank2
             double sss = Math.Sin(theta);
             double ccc = Math.Cos(theta);
             double ttt = Math.Tan(theta);
+            //double scsc = sss * ccc;
+
             string text1stuff = "    theta  = " + string.Format("{0:0.00000}", thetadegrees * (-1)) + "\r\n";
             text1stuff += "sin(theta) = " + string.Format("{0:0.00000}", Math.Sin(theta)) + "\r\n";
             text1stuff += "cos(theta) = " + string.Format("{0:0.00000}", Math.Cos(theta)) + "\r\n";
@@ -304,6 +306,7 @@ namespace blank2
                 Point zThetatext = getCoord(0.1, 0.1, dotsPerUnit, pbw, pbh);
                 Point zx = getCoord(ccc, 0, dotsPerUnit, pbw, pbh);
                 Point zy = getCoord(0, sss, dotsPerUnit, pbw, pbh);
+                //Point zscsc = getCoord(scsc, 0, dotsPerUnit, pbw, pbh);
 
                 try
                 {
@@ -318,6 +321,7 @@ namespace blank2
                 g.DrawLine(Z3MinusPen, zCircle, zx);
                 g.DrawLine(Z3MinusPen, zCircle, zy);
                 g.FillEllipse(z3Brush, zx.X - 3, zero.Y - 3, 6, 6);
+                //g.FillEllipse(z3Brush, zscsc.X - 3, zscsc.Y - 3, 6, 6);
                 g.DrawString("cos", drawFont, z3Brush, zx);
                 g.FillEllipse(z3Brush, zero.X - 3, zy.Y - 3, 6, 6);
                 g.DrawString("sin", drawFont, z3Brush, zy);
