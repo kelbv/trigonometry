@@ -297,6 +297,7 @@ namespace blank2
             try
             {
                 ztan = getCoord(1, ttt, dotsPerUnit, pbw, pbh);
+                Point ztanz = getCoord(0, ttt, dotsPerUnit, pbw, pbh);
 
 
                 Point zero = getCoord(0, 0, dotsPerUnit, pbw, pbh);
@@ -328,7 +329,10 @@ namespace blank2
                 try
                 {
                     g.FillEllipse(z2Brush, minusThree.X - 3, ztan.Y - 3, 6, 6);
+                    g.FillEllipse(z3Brush, ztanz.X - 3, ztanz.Y - 3, 6, 6);
+                    g.DrawLine(Z3MinusPen, ztan, ztanz);
                     g.DrawString("tan", drawFont, z3Brush, ztan);
+                    g.DrawString("tan", drawFont, z3Brush, ztanz);
                     text1stuff += "tan(theta) = " + string.Format("{0:0.00000}", Math.Tan(theta));
                 }
                 catch (Exception eeeee)
