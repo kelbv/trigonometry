@@ -30,31 +30,60 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbAnglesDegrees = new System.Windows.Forms.RadioButton();
+            this.rbAnglesRadians = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 571);
+            this.panel1.Size = new System.Drawing.Size(239, 571);
             this.panel1.TabIndex = 0;
             // 
-            // pictureBox1
+            // groupBox1
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(200, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(533, 571);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.groupBox1.Controls.Add(this.rbAnglesDegrees);
+            this.groupBox1.Controls.Add(this.rbAnglesRadians);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(143, 69);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Angles";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // rbAnglesDegrees
+            // 
+            this.rbAnglesDegrees.AutoSize = true;
+            this.rbAnglesDegrees.Checked = true;
+            this.rbAnglesDegrees.Location = new System.Drawing.Point(6, 19);
+            this.rbAnglesDegrees.Name = "rbAnglesDegrees";
+            this.rbAnglesDegrees.Size = new System.Drawing.Size(63, 17);
+            this.rbAnglesDegrees.TabIndex = 1;
+            this.rbAnglesDegrees.TabStop = true;
+            this.rbAnglesDegrees.Text = "degrees";
+            this.rbAnglesDegrees.UseVisualStyleBackColor = true;
+            this.rbAnglesDegrees.CheckedChanged += new System.EventHandler(this.rbAnglesDegrees_CheckedChanged);
+            // 
+            // rbAnglesRadians
+            // 
+            this.rbAnglesRadians.AutoSize = true;
+            this.rbAnglesRadians.Location = new System.Drawing.Point(6, 42);
+            this.rbAnglesRadians.Name = "rbAnglesRadians";
+            this.rbAnglesRadians.Size = new System.Drawing.Size(59, 17);
+            this.rbAnglesRadians.TabIndex = 2;
+            this.rbAnglesRadians.Text = "radians";
+            this.rbAnglesRadians.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
@@ -63,8 +92,19 @@
             this.textBox1.Location = new System.Drawing.Point(0, 336);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(200, 235);
+            this.textBox1.Size = new System.Drawing.Size(239, 235);
             this.textBox1.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(239, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(494, 571);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // Form1
             // 
@@ -79,6 +119,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -89,6 +131,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbAnglesDegrees;
+        private System.Windows.Forms.RadioButton rbAnglesRadians;
     }
 }
 

@@ -150,6 +150,17 @@ namespace blank2
             }
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbAnglesDegrees_CheckedChanged(object sender, EventArgs e)
+        {
+            drawStuff(true);
+        }
+
+
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
         {
             if (x1 == x2)
@@ -234,6 +245,13 @@ namespace blank2
             Z3MinusPen.DashPattern = new float[] { 3.0F, 3.0F };
             z3Pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
 
+            Color z4Color = System.Drawing.Color.Orange;
+            Brush z4Brush = new SolidBrush(z4Color);
+            Pen z4Pen = new Pen(z4Brush);
+            Pen Z4MinusPen = new Pen(z4Brush);
+            Z4MinusPen.DashPattern = new float[] { 3.0F, 3.0F };
+            z4Pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
+
             double xscale = (pbw / dotsPerUnit) / 2.0;
             double yscale = (pbh / dotsPerUnit) / 2.0;
 
@@ -284,13 +302,19 @@ namespace blank2
                 theta = theta + (Math.PI * 2);
             }
             float thetadegrees = (float)((int)((theta * 360) / (Math.PI * 2)) * -1);
-            theta = (thetadegrees / 360.0) * Math.PI * 2 * (-1);
+            //float thetadegrees = (float)(((theta * 360) / (Math.PI * 2)) * -1);
+            if (rbAnglesDegrees.Checked)
+            {
+                theta = (thetadegrees / 360.0) * Math.PI * 2 * (-1);
+            }
             double sss = Math.Sin(theta);
             double ccc = Math.Cos(theta);
             double ttt = Math.Tan(theta);
+            string text1stuff = "";
             //double scsc = sss * ccc;
 
-            string text1stuff = "    theta  = " + string.Format("{0:0.00000}", thetadegrees * (-1)) + "\r\n";
+            text1stuff += "    theta  = " + string.Format("{0:0.00000}", thetadegrees * (-1)) + " (degrees)\r\n";
+            text1stuff += "    theta  = " + string.Format("{0:0.00000}", theta ) + " (radians)\r\n";
             text1stuff += "sin(theta) = " + string.Format("{0:0.00000}", Math.Sin(theta)) + "\r\n";
             text1stuff += "cos(theta) = " + string.Format("{0:0.00000}", Math.Cos(theta)) + "\r\n";
             Point ztan = getCoord(0, 0, dotsPerUnit, pbw, pbh);
@@ -307,6 +331,7 @@ namespace blank2
                 Point zThetatext = getCoord(0.1, 0.1, dotsPerUnit, pbw, pbh);
                 Point zx = getCoord(ccc, 0, dotsPerUnit, pbw, pbh);
                 Point zy = getCoord(0, sss, dotsPerUnit, pbw, pbh);
+                Point zArcLength = getCoord(1, theta, dotsPerUnit, pbw, pbh);
                 //Point zscsc = getCoord(scsc, 0, dotsPerUnit, pbw, pbh);
 
                 try
@@ -326,6 +351,9 @@ namespace blank2
                 g.DrawString("cos", drawFont, z3Brush, zx);
                 g.FillEllipse(z3Brush, zero.X - 3, zy.Y - 3, 6, 6);
                 g.DrawString("sin", drawFont, z3Brush, zy);
+                g.FillEllipse(z4Brush, zArcLength.X - 3, zArcLength.Y - 3, 6, 6);
+                g.DrawLine(z4Pen, zCircle, zArcLength);
+                g.DrawString("arc length", drawFont, z4Brush, zArcLength);
                 try
                 {
                     g.FillEllipse(z2Brush, minusThree.X - 3, ztan.Y - 3, 6, 6);
@@ -341,7 +369,14 @@ namespace blank2
                 }
                 g.FillEllipse(z2Brush, zCircle.X - 3, zCircle.Y - 3, 6, 6);
                 g.DrawArc(Z2MinusPen, boundArc, 0, thetadegrees);
-                g.DrawString(string.Format("{0:0.00}", thetadegrees*(-1)), drawFont, z3Brush, zThetatext);
+                if (rbAnglesDegrees.Checked)
+                {
+                    g.DrawString(string.Format("{0:0.00}", thetadegrees * (-1)), drawFont, z3Brush, zThetatext);
+                }
+                else
+                {
+                    g.DrawString(string.Format("{0:0.00}", theta), drawFont, z3Brush, zThetatext);
+                }
                 textBox1.Text = text1stuff;
                 textBox1.Refresh();
 
