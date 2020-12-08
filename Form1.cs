@@ -328,7 +328,7 @@ namespace blank2
                 Point minusThree = getCoord(1, -3, dotsPerUnit, pbw, pbh);
                 Point plusThree = getCoord(1, 3, dotsPerUnit, pbw, pbh);
                 Point zCircle = getCoord(ccc, sss, dotsPerUnit, pbw, pbh);
-                Point zThetatext = getCoord(0.1, 0.1, dotsPerUnit, pbw, pbh);
+                Point zThetatext = getCoord(0.15, 0.15, dotsPerUnit, pbw, pbh);
                 Point zx = getCoord(ccc, 0, dotsPerUnit, pbw, pbh);
                 Point zy = getCoord(0, sss, dotsPerUnit, pbw, pbh);
                 Point zArcLength = getCoord(1, theta, dotsPerUnit, pbw, pbh);
@@ -348,20 +348,20 @@ namespace blank2
                 g.DrawLine(Z3MinusPen, zCircle, zy);
                 g.FillEllipse(z3Brush, zx.X - 3, zero.Y - 3, 6, 6);
                 //g.FillEllipse(z3Brush, zscsc.X - 3, zscsc.Y - 3, 6, 6);
-                g.DrawString("cos", drawFont, z3Brush, zx);
+                g.DrawString("cos " + string.Format("{0:0.00}", Math.Cos(theta)), drawFont, z3Brush, zx);
                 g.FillEllipse(z3Brush, zero.X - 3, zy.Y - 3, 6, 6);
-                g.DrawString("sin", drawFont, z3Brush, zy);
+                g.DrawString("sin " + string.Format("{0:0.00}", Math.Sin(theta)), drawFont, z3Brush, zy.X, zy.Y+5);
                 g.FillEllipse(z4Brush, zArcLength.X - 3, zArcLength.Y - 3, 6, 6);
                 g.DrawLine(z4Pen, zCircle, zArcLength);
-                g.DrawString("arc length", drawFont, z4Brush, zArcLength);
+                g.DrawString("arc length " + string.Format("{0:0.00}", theta), drawFont, z4Brush, zArcLength.X + 18, zArcLength.Y);
                 try
                 {
                     g.FillEllipse(z2Brush, minusThree.X - 3, ztan.Y - 3, 6, 6);
                     g.FillEllipse(z3Brush, ztanz.X - 3, ztanz.Y - 3, 6, 6);
                     g.DrawLine(Z3MinusPen, ztan, ztanz);
-                    g.DrawString("tan", drawFont, z3Brush, ztan);
-                    g.DrawString("tan", drawFont, z3Brush, ztanz);
-                    text1stuff += "tan(theta) = " + string.Format("{0:0.00000}", Math.Tan(theta));
+                    //g.DrawString("tan", drawFont, z3Brush, ztan);
+                    g.DrawString("tan " + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush,ztanz.X,ztanz.Y - 14);
+                    text1stuff += "tan(theta) = " + string.Format("{0:0.00}", Math.Tan(theta));
                 }
                 catch (Exception eeeee)
                 {
