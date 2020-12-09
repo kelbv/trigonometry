@@ -49,7 +49,7 @@ namespace blank2
             g.FillRectangle(f2b, 0, 0, pbw, pbh);
             pictureBox1.Image = b;
             pictureBox1.Refresh();
-            maxMod = 1;
+            maxMod = 1.5;
             dotsPerUnit = (pbh / (maxMod  )) / 2.0;
             pictureBox1.Invalidate();
             drawStuff(true);
@@ -161,6 +161,11 @@ namespace blank2
             drawStuff(true);
         }
 
+        private void maxmodud_ValueChanged(object sender, EventArgs e)
+        {
+            maxMod = (int)maxmodud.Value + 0.5;
+            drawStuff(true);
+        }
 
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
         {
@@ -204,6 +209,7 @@ namespace blank2
             pbw = pictureBox1.Width;
             pbh = pictureBox1.Height;
             b = new Bitmap(pbw, pbh);
+            dotsPerUnit = (pbh / (maxMod)) / 2.0;
             g = Graphics.FromImage(b);
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Font drawFont = new Font("Lucida Console", 8);
@@ -246,13 +252,17 @@ namespace blank2
             Z3MinusPen.DashPattern = new float[] { 3.0F, 3.0F };
             z3Pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
 
-            Color z4Color = System.Drawing.Color.Orange;
+            Color z4Color = System.Drawing.Color.FromArgb(255, 255, 131, 0);
             Brush z4Brush = new SolidBrush(z4Color);
             Pen z4Pen = new Pen(z4Brush);
             Pen Z4MinusPen = new Pen(z4Brush);
             Z4MinusPen.DashPattern = new float[] { 3.0F, 3.0F };
-            z4Pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
+            //z4Pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
 
+            Color z4ColorA = System.Drawing.Color.FromArgb(100, 255, 131, 0);
+            Brush z4BrushA = new SolidBrush(z4ColorA);
+            Pen z4PenA = new Pen(z4BrushA);
+            
             double xscale = (pbw / dotsPerUnit) / 2.0;
             double yscale = (pbh / dotsPerUnit) / 2.0;
 
@@ -328,6 +338,7 @@ namespace blank2
 
                 Point zero = getCoord(0, 0, dotsPerUnit, pbw, pbh);
                 Point minusThree = getCoord(1, -3, dotsPerUnit, pbw, pbh);
+                Point onezero = getCoord(1, 0, dotsPerUnit, pbw, pbh);
                 Point plusThree = getCoord(1, 3, dotsPerUnit, pbw, pbh);
                 Point zCircle = getCoord(ccc, sss, dotsPerUnit, pbw, pbh);
                 Point zThetatext = getCoord(0.15, 0.15, dotsPerUnit, pbw, pbh);
@@ -354,27 +365,45 @@ namespace blank2
                 g.FillEllipse(z3Brush, zero.X - 3, zy.Y - 3, 6, 6);
                 g.DrawString("sin " + string.Format("{0:0.00}", Math.Sin(theta)), drawFont, z3Brush, zy.X, zy.Y+5);
                 g.FillEllipse(z4Brush, zArcLength.X - 3, zArcLength.Y - 3, 6, 6);
-                g.DrawLine(z4Pen, zCircle, zArcLength);
                 g.DrawString("arc length " + string.Format("{0:0.00}", theta), drawFont, z4Brush, zArcLength.X + 18, zArcLength.Y);
-                for (int rstep = 0; rstep < 10; rstep++)
+                if (cbDrawArcs.Checked == false)
                 {
-                    try
+                    g.DrawLine(z4Pen, zCircle, zArcLength);
+
+                }
+                else
+                {
+                    g.DrawLine(z4Pen, onezero, zArcLength);
+                    double rsteps = 50;
+                    for (int rstep = 0; rstep < rsteps; rstep++)
                     {
-                        double rmax = 5;
-                        double rcurrent = 1 + rmax / rstep;
-                        Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent, dotsPerUnit, pbw, pbh);
-                        Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
-                        Rectangle myrectangle = new Rectangle(mytopcorner, mysize);
-                        float mytheta = (float)( truetheta / rcurrent);
-                        int mythetadegrees = (int)((360 * mytheta) / (Math.PI * 2));
-                        g.DrawRectangle(z4Pen, myrectangle);
-                        g.DrawArc(z4Pen, myrectangle, 0, (-1) * mytheta);
-                    }
-                    catch (Exception esweep)
-                    {
-                        //MessageBox.Show(esweep.Message);
+                        try
+                        {
+                            double rmax = 100;
+                            double rcurrent = 1 + (rmax * (Math.Pow((rstep / rsteps), 4)));
+                            Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent, dotsPerUnit, pbw, pbh);
+                            Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
+                            Rectangle myrectangle = new Rectangle(mytopcorner, mysize);
+                            float mytheta = (float)((360 * truetheta) / (Math.PI * 2 * rcurrent));
+                            int mythetadegrees = (int)((360 * mytheta) / (Math.PI * 2));
+                            try
+                            {
+                                g.DrawArc(z4PenA, myrectangle, 0, (-1) * mytheta);
+                                //g.DrawRectangle(z4Pen, myrectangle);
+
+                            }
+                            catch (Exception earc)
+                            {
+                                MessageBox.Show(earc.Message);
+                            }
+                        }
+                        catch (Exception esweep)
+                        {
+                            //MessageBox.Show(esweep.Message);
+                        }
                     }
                 }
+                
                 try
                 {
                     g.FillEllipse(z2Brush, minusThree.X - 3, ztan.Y - 3, 6, 6);

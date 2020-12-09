@@ -35,13 +35,18 @@
             this.rbAnglesRadians = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.maxmodud = new System.Windows.Forms.NumericUpDown();
+            this.cbDrawArcs = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbDrawArcs);
+            this.panel1.Controls.Add(this.maxmodud);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -106,6 +111,34 @@
             this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
+            // maxmodud
+            // 
+            this.maxmodud.Location = new System.Drawing.Point(18, 107);
+            this.maxmodud.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.maxmodud.Name = "maxmodud";
+            this.maxmodud.Size = new System.Drawing.Size(120, 20);
+            this.maxmodud.TabIndex = 4;
+            this.maxmodud.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.maxmodud.ValueChanged += new System.EventHandler(this.maxmodud_ValueChanged);
+            // 
+            // cbDrawArcs
+            // 
+            this.cbDrawArcs.AutoSize = true;
+            this.cbDrawArcs.Location = new System.Drawing.Point(18, 157);
+            this.cbDrawArcs.Name = "cbDrawArcs";
+            this.cbDrawArcs.Size = new System.Drawing.Size(72, 17);
+            this.cbDrawArcs.TabIndex = 5;
+            this.cbDrawArcs.Text = "draw arcs";
+            this.cbDrawArcs.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,6 +155,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -134,6 +168,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbAnglesDegrees;
         private System.Windows.Forms.RadioButton rbAnglesRadians;
+        private System.Windows.Forms.NumericUpDown maxmodud;
+        private System.Windows.Forms.CheckBox cbDrawArcs;
     }
 }
 
