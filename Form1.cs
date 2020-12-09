@@ -167,6 +167,16 @@ namespace blank2
             drawStuff(true);
         }
 
+        private void cbDrawArcs_CheckedChanged(object sender, EventArgs e)
+        {
+            drawStuff(true);
+        }
+
+        private void cbSnapToDegrees_CheckedChanged(object sender, EventArgs e)
+        {
+            drawStuff(true);
+        }
+
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
         {
             if (x1 == x2)
@@ -259,10 +269,11 @@ namespace blank2
             Z4MinusPen.DashPattern = new float[] { 3.0F, 3.0F };
             //z4Pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
 
-            Color z4ColorA = System.Drawing.Color.FromArgb(100, 255, 131, 0);
+            Color z4ColorA = System.Drawing.Color.FromArgb(80, 255, 131, 0);
             Brush z4BrushA = new SolidBrush(z4ColorA);
             Pen z4PenA = new Pen(z4BrushA);
-            
+            z4PenA.EndCap = System.Drawing.Drawing2D.LineCap.DiamondAnchor;
+
             double xscale = (pbw / dotsPerUnit) / 2.0;
             double yscale = (pbh / dotsPerUnit) / 2.0;
 
@@ -312,12 +323,15 @@ namespace blank2
             {
                 theta = theta + (Math.PI * 2);
             }
+           // double ttt = Math.Tan(theta);
             double truetheta = theta;
-            float thetadegrees = (float)((int)((theta * 360) / (Math.PI * 2)) * -1);
+            float thetadegrees = (float)((theta * 360) / (Math.PI * 2)) * -1;
             //float thetadegrees = (float)(((theta * 360) / (Math.PI * 2)) * -1);
-            if (rbAnglesDegrees.Checked)
+            if (rbAnglesDegrees.Checked && cbSnapToDegrees.Checked)
             {
+                thetadegrees = (int)thetadegrees;
                 theta = (thetadegrees / 360.0) * Math.PI * 2 * (-1);
+                truetheta = theta;
             }
             double sss = Math.Sin(theta);
             double ccc = Math.Cos(theta);
@@ -337,9 +351,9 @@ namespace blank2
 
 
                 Point zero = getCoord(0, 0, dotsPerUnit, pbw, pbh);
-                Point minusThree = getCoord(1, -3, dotsPerUnit, pbw, pbh);
+                Point minusThree = getCoord(1, -10, dotsPerUnit, pbw, pbh);
                 Point onezero = getCoord(1, 0, dotsPerUnit, pbw, pbh);
-                Point plusThree = getCoord(1, 3, dotsPerUnit, pbw, pbh);
+                Point plusThree = getCoord(1, 10, dotsPerUnit, pbw, pbh);
                 Point zCircle = getCoord(ccc, sss, dotsPerUnit, pbw, pbh);
                 Point zThetatext = getCoord(0.15, 0.15, dotsPerUnit, pbw, pbh);
                 Point zx = getCoord(ccc, 0, dotsPerUnit, pbw, pbh);
@@ -374,13 +388,13 @@ namespace blank2
                 else
                 {
                     g.DrawLine(z4Pen, onezero, zArcLength);
-                    double rsteps = 50;
+                    double rsteps = Math.Max(thetadegrees * (-1)  *2, 50);
                     for (int rstep = 0; rstep < rsteps; rstep++)
                     {
                         try
                         {
-                            double rmax = 100;
-                            double rcurrent = 1 + (rmax * (Math.Pow((rstep / rsteps), 4)));
+                            double rmax = 1000;
+                            double rcurrent = 1 + (rmax * (Math.Pow((rstep / rsteps), 6)));
                             Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent, dotsPerUnit, pbw, pbh);
                             Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
                             Rectangle myrectangle = new Rectangle(mytopcorner, mysize);

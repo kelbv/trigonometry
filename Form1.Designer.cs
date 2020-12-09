@@ -30,21 +30,25 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbDrawArcs = new System.Windows.Forms.CheckBox();
+            this.maxmodud = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbAnglesDegrees = new System.Windows.Forms.RadioButton();
             this.rbAnglesRadians = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.maxmodud = new System.Windows.Forms.NumericUpDown();
-            this.cbDrawArcs = new System.Windows.Forms.CheckBox();
+            this.cbSnapToDegrees = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.cbSnapToDegrees);
             this.panel1.Controls.Add(this.cbDrawArcs);
             this.panel1.Controls.Add(this.maxmodud);
             this.panel1.Controls.Add(this.groupBox1);
@@ -54,6 +58,35 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(239, 571);
             this.panel1.TabIndex = 0;
+            // 
+            // cbDrawArcs
+            // 
+            this.cbDrawArcs.AutoSize = true;
+            this.cbDrawArcs.Location = new System.Drawing.Point(18, 110);
+            this.cbDrawArcs.Name = "cbDrawArcs";
+            this.cbDrawArcs.Size = new System.Drawing.Size(72, 17);
+            this.cbDrawArcs.TabIndex = 5;
+            this.cbDrawArcs.Text = "draw arcs";
+            this.cbDrawArcs.UseVisualStyleBackColor = true;
+            this.cbDrawArcs.CheckedChanged += new System.EventHandler(this.cbDrawArcs_CheckedChanged);
+            // 
+            // maxmodud
+            // 
+            this.maxmodud.Location = new System.Drawing.Point(53, 148);
+            this.maxmodud.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.maxmodud.Name = "maxmodud";
+            this.maxmodud.Size = new System.Drawing.Size(120, 20);
+            this.maxmodud.TabIndex = 4;
+            this.maxmodud.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.maxmodud.ValueChanged += new System.EventHandler(this.maxmodud_ValueChanged);
             // 
             // groupBox1
             // 
@@ -111,33 +144,25 @@
             this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
-            // maxmodud
+            // cbSnapToDegrees
             // 
-            this.maxmodud.Location = new System.Drawing.Point(18, 107);
-            this.maxmodud.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.maxmodud.Name = "maxmodud";
-            this.maxmodud.Size = new System.Drawing.Size(120, 20);
-            this.maxmodud.TabIndex = 4;
-            this.maxmodud.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.maxmodud.ValueChanged += new System.EventHandler(this.maxmodud_ValueChanged);
+            this.cbSnapToDegrees.AutoSize = true;
+            this.cbSnapToDegrees.Location = new System.Drawing.Point(18, 87);
+            this.cbSnapToDegrees.Name = "cbSnapToDegrees";
+            this.cbSnapToDegrees.Size = new System.Drawing.Size(102, 17);
+            this.cbSnapToDegrees.TabIndex = 6;
+            this.cbSnapToDegrees.Text = "snap to degrees";
+            this.cbSnapToDegrees.UseVisualStyleBackColor = true;
+            this.cbSnapToDegrees.CheckedChanged += new System.EventHandler(this.cbSnapToDegrees_CheckedChanged);
             // 
-            // cbDrawArcs
+            // label1
             // 
-            this.cbDrawArcs.AutoSize = true;
-            this.cbDrawArcs.Location = new System.Drawing.Point(18, 157);
-            this.cbDrawArcs.Name = "cbDrawArcs";
-            this.cbDrawArcs.Size = new System.Drawing.Size(72, 17);
-            this.cbDrawArcs.TabIndex = 5;
-            this.cbDrawArcs.Text = "draw arcs";
-            this.cbDrawArcs.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 150);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "scale";
             // 
             // Form1
             // 
@@ -152,10 +177,10 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -170,6 +195,8 @@
         private System.Windows.Forms.RadioButton rbAnglesRadians;
         private System.Windows.Forms.NumericUpDown maxmodud;
         private System.Windows.Forms.CheckBox cbDrawArcs;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbSnapToDegrees;
     }
 }
 
