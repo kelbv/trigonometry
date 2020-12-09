@@ -355,15 +355,24 @@ namespace blank2
                 g.FillEllipse(z4Brush, zArcLength.X - 3, zArcLength.Y - 3, 6, 6);
                 g.DrawLine(z4Pen, zCircle, zArcLength);
                 g.DrawString("arc length " + string.Format("{0:0.00}", theta), drawFont, z4Brush, zArcLength.X + 18, zArcLength.Y);
-                for (double rstep = 0; rstep < 10; rstep++)
-                {
-                    double rmax = 5;
-                    double rcurrent = 1 + rmax / rstep;
-                    Point mycenter = getCoord(1 - rcurrent, 0, dotsPerUnit, pbw, pbh);
-                    double mytheta = theta / rcurrent;
-                    int mythetadegrees = (int)((360 * mytheta) / (Math.PI * 2));
-                    g.DrawArc(z4Pen, mycenter.X, mycenter.Y, minusThree.X - mycenter.X, minusThree.X - mycenter.X, 0,  mythetadegrees);
-                }
+                //for (int rstep = 0; rstep < 10; rstep++)
+                //{
+                //    try
+                //    {
+                //        double rmax = 5;
+                //        double rcurrent = 1 + rmax / rstep;
+                //        Point mytopcorner = getCoord(1 - (2* rcurrent), rcurrent, dotsPerUnit, pbw, pbh);
+                //        double mytheta = theta / rcurrent;
+                //        int mythetadegrees = (int)((360 * mytheta) / (Math.PI * 2));
+                //        //g.DrawArc(z4Pen, mycenter.X, mycenter.Y, minusThree.X - mycenter.X, minusThree.X - mycenter.X, 0, mythetadegrees);
+                //        g.DrawArc(z4Pen, mytopcorner.X, mytopcorner.Y, minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X, 0, (-1) * mythetadegrees);
+                //        //g.DrawArc(z4Pen, 100, 100, 30+rstep, 30+rstep, 0, 40);
+                //    }
+                //    catch (Exception esweep)
+                //    {
+                //        //MessageBox.Show(esweep.Message);
+                //    }
+                //}
                 try
                 {
                     g.FillEllipse(z2Brush, minusThree.X - 3, ztan.Y - 3, 6, 6);
