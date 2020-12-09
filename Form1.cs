@@ -14,6 +14,7 @@ namespace blank2
     public partial class Form1 : Form
     {
         // added comment 2020 12 09
+        // added second comment 2020 12 09
         List<Point> traces;
         int pbw;
         int pbh;
