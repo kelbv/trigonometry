@@ -67,19 +67,19 @@ namespace blank2
         }
 
 
-        public Point getCoord(double x, double y, double dotsPerUnit, int width, int height)
+        public Point getCoord(double x, double y)
         {
             // what we need to do
             // give the method a x and y value, and get back the picturebox1 coords of that value
             // X 
             // zero is width / 2;
             // x is int(width/2  + x * dotsPerUnit)
-            int xcoord = (int)(width / 2 + x * dotsPerUnit);
+            int xcoord = (int)(pbw / 2 + x * dotsPerUnit);
 
             // Y
             // zero is height / 2;
             // y is zero - y * dotsPerUnit
-            int ycoord = (int)(height / 2 - y * dotsPerUnit);
+            int ycoord = (int)(pbh / 2 - y * dotsPerUnit);
             return new Point(xcoord, ycoord);
         }
 
@@ -288,37 +288,37 @@ namespace blank2
                     for (int i = (int)(xscale * -1); i <= xscale; i++)
                     {
                         g.DrawLine(graphPen,
-                                        getCoord(i, yscale * -1, dotsPerUnit, pbw, pbh),
-                                        getCoord(i, yscale, dotsPerUnit, pbw, pbh));
+                                        getCoord(i, yscale * -1),
+                                        getCoord(i, yscale));
 
                     }
 
                     for (int i = (int)(yscale * -1); i <= yscale; i++)
                     {
                         g.DrawLine(graphPen,
-                                        getCoord(xscale * -1, i, dotsPerUnit, pbw, pbh),
-                                        getCoord(xscale, i, dotsPerUnit, pbw, pbh));
+                                        getCoord(xscale * -1, i),
+                                        getCoord(xscale, i));
 
                     }
 
-                    g.DrawLine(axisPen, getCoord(xscale * -1, 0, dotsPerUnit, pbw, pbh), getCoord(xscale, 0, dotsPerUnit, pbw, pbh));
-                    g.DrawLine(axisPen, getCoord(0, yscale, dotsPerUnit, pbw, pbh), getCoord(0, yscale * -1, dotsPerUnit, pbw, pbh));
+                    g.DrawLine(axisPen, getCoord(xscale * -1, 0), getCoord(xscale, 0));
+                    g.DrawLine(axisPen, getCoord(0, yscale), getCoord(0, yscale * -1));
                 }
                 Rectangle bound = new Rectangle(
-                             getCoord(-1, 1, dotsPerUnit, pbw, pbh).X,
-                             getCoord(-1, 1, dotsPerUnit, pbw, pbh).Y,
+                             getCoord(-1, 1).X,
+                             getCoord(-1, 1).Y,
                              (int)(dotsPerUnit * 2),
                              (int)(dotsPerUnit * 2));
 
                 Rectangle boundArc = new Rectangle(
-                 getCoord(-0.4, 0.4, dotsPerUnit, pbw, pbh).X,
-                 getCoord(-0.4, 0.4, dotsPerUnit, pbw, pbh).Y,
+                 getCoord(-0.4, 0.4).X,
+                 getCoord(-0.4, 0.4).Y,
                  (int)(dotsPerUnit * 0.8),
                  (int)(dotsPerUnit * 0.8));
 
                 g.DrawEllipse(z1Pen, bound);
 
-                z1Point = getCoord(z1.getReal(), z1.getImag(), dotsPerUnit, pbw, pbh);
+                z1Point = getCoord(z1.getReal(), z1.getImag());
                 // g.FillEllipse(z2Brush, z1Point.X - 3, z1Point.Y - 3, 6, 6);
 
                 double theta = Math.Round(Math.Atan2(z1.getImag(), z1.getReal()),3);
@@ -346,23 +346,23 @@ namespace blank2
                 text1stuff += "    theta  = " + string.Format("{0:0.000}", theta) + " (radians)\r\n";
                 text1stuff += "sin(theta) = " + string.Format("{0:0.00000}", Math.Sin(theta)) + "\r\n";
                 text1stuff += "cos(theta) = " + string.Format("{0:0.00000}", Math.Cos(theta)) + "\r\n";
-                Point ztan = getCoord(0, 0, dotsPerUnit, pbw, pbh);
+                Point ztan = getCoord(0, 0);
                 try
                 {
-                    ztan = getCoord(1, ttt, dotsPerUnit, pbw, pbh);
-                    Point ztanz = getCoord(0, ttt, dotsPerUnit, pbw, pbh);
+                    ztan = getCoord(1, ttt);
+                    Point ztanz = getCoord(0, ttt);
 
 
-                    Point zero = getCoord(0, 0, dotsPerUnit, pbw, pbh);
-                    Point minusThree = getCoord(1, -10, dotsPerUnit, pbw, pbh);
-                    Point onezero = getCoord(1, 0, dotsPerUnit, pbw, pbh);
-                    Point plusThree = getCoord(1, 10, dotsPerUnit, pbw, pbh);
-                    Point zCircle = getCoord(ccc, sss, dotsPerUnit, pbw, pbh);
-                    Point zThetatext = getCoord(0.15, 0.15, dotsPerUnit, pbw, pbh);
-                    Point zx = getCoord(ccc, 0, dotsPerUnit, pbw, pbh);
-                    Point zy = getCoord(0, sss, dotsPerUnit, pbw, pbh);
-                    Point zArcLength = getCoord(1, theta, dotsPerUnit, pbw, pbh);
-                    //Point zscsc = getCoord(scsc, 0, dotsPerUnit, pbw, pbh);
+                    Point zero = getCoord(0, 0);
+                    Point minusThree = getCoord(1, -10);
+                    Point onezero = getCoord(1, 0);
+                    Point plusThree = getCoord(1, 10);
+                    Point zCircle = getCoord(ccc, sss);
+                    Point zThetatext = getCoord(0.15, 0.15);
+                    Point zx = getCoord(ccc, 0);
+                    Point zy = getCoord(0, sss);
+                    Point zArcLength = getCoord(1, theta);
+                    //Point zscsc = getCoord(scsc, 0);
 
                     try
                     {
@@ -398,7 +398,7 @@ namespace blank2
                             {
                                 double rmax = 1000;
                                 double rcurrent = 1 + (rmax * (Math.Pow((rstep / rsteps), 6)));
-                                Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent, dotsPerUnit, pbw, pbh);
+                                Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent);
                                 Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
                                 Rectangle myrectangle = new Rectangle(mytopcorner, mysize);
                                 float mytheta = (float)((360 * truetheta) / (Math.PI * 2 * rcurrent));
