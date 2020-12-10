@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbArc = new System.Windows.Forms.CheckBox();
+            this.arcUd = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.cbSnapToDegrees = new System.Windows.Forms.CheckBox();
             this.cbDrawArcs = new System.Windows.Forms.CheckBox();
@@ -40,6 +42,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.arcUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -47,6 +50,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbArc);
+            this.panel1.Controls.Add(this.arcUd);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbSnapToDegrees);
             this.panel1.Controls.Add(this.cbDrawArcs);
@@ -58,6 +63,36 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(239, 571);
             this.panel1.TabIndex = 0;
+            // 
+            // cbArc
+            // 
+            this.cbArc.AutoSize = true;
+            this.cbArc.Location = new System.Drawing.Point(53, 200);
+            this.cbArc.Name = "cbArc";
+            this.cbArc.Size = new System.Drawing.Size(62, 17);
+            this.cbArc.TabIndex = 9;
+            this.cbArc.Text = "one arc";
+            this.cbArc.UseVisualStyleBackColor = true;
+            this.cbArc.CheckedChanged += new System.EventHandler(this.cbArc_CheckedChanged);
+            // 
+            // arcUd
+            // 
+            this.arcUd.Location = new System.Drawing.Point(53, 174);
+            this.arcUd.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.arcUd.Name = "arcUd";
+            this.arcUd.Size = new System.Drawing.Size(120, 20);
+            this.arcUd.TabIndex = 8;
+            this.arcUd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.arcUd.ValueChanged += new System.EventHandler(this.arcUd_ValueChanged);
+            this.arcUd.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.arcud_MouseWheel);
             // 
             // label1
             // 
@@ -184,6 +219,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.arcUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -204,6 +240,8 @@
         private System.Windows.Forms.CheckBox cbDrawArcs;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbSnapToDegrees;
+        private System.Windows.Forms.CheckBox cbArc;
+        private System.Windows.Forms.NumericUpDown arcUd;
     }
 }
 

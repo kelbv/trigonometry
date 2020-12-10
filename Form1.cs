@@ -192,6 +192,36 @@ namespace blank2
             maxmodud.Value = Math.Min(maxmodud.Maximum,Math.Max(maxmodud.Minimum,(decimal)(maxmodud.Value + (decimal)(e.Delta * scale_per_delta))));
         }
 
+        private void arcud_MouseWheel(object sender, MouseEventArgs e)
+        {
+            //try
+            //{
+            //    // The amount by which we adjust scale per wheel click.
+            //    if (e.Delta < 0)
+            //    {
+            //        arcUd.Value -= 1;
+            //    }
+            //    else
+            //    {
+            //        arcUd.Value += 1;
+            //    }
+            //}
+            //catch (Exception ignoreme)
+            //{
+
+            //}
+        }
+
+        private void arcUd_ValueChanged(object sender, EventArgs e)
+        {
+            drawStuff(true);
+        }
+
+        private void cbArc_CheckedChanged(object sender, EventArgs e)
+        {
+            drawStuff(true);
+        }
+
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
         {
             if (x1 == x2)
@@ -330,6 +360,10 @@ namespace blank2
                  (int)(dotsPerUnit * 0.8),
                  (int)(dotsPerUnit * 0.8));
 
+                 //Size unitsquare = new Size((int)dotsPerUnit, (int)dotsPerUnit);
+                 //Rectangle nr = new Rectangle(getCoord(z2.getReal() - 0.5, z2.getImag() + 0.5), unitsquare);
+                 //g.DrawEllipse(z1Pen, nr);
+
                 g.DrawEllipse(z1Pen, bound);
 
                 z1Point = getCoord(z1.getReal(), z1.getImag());
@@ -405,41 +439,51 @@ namespace blank2
                     else
                     {
                         g.DrawLine(z4Pen, onezero, zArcLength);
-                        double rsteps = Math.Max(thetadegrees * (-1) * 2, 50);
+                        double rsteps = Math.Min(thetadegrees * (-1) * 2, 150);
+                        arcUd.Maximum = (int)rsteps;
+                        //double rsteps = 50;
                         for (int rstep = 0; rstep < rsteps; rstep++)
                         {
-                            try
+                            if ((rstep == (int)arcUd.Value && cbArc.Checked) || cbArc.Checked == false)
                             {
-                                double rmax = 1000;
-                                double rcurrent = 1 + (rmax * (Math.Pow((rstep / rsteps), 6)));
-                                Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent);
-                                Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
-                                Rectangle myrectangle = new Rectangle(mytopcorner, mysize);
-                                float mytheta = (float)((360 * truetheta) / (Math.PI * 2 * rcurrent));
-                                int mythetadegrees = (int)((360 * mytheta) / (Math.PI * 2));
                                 try
                                 {
-                                    int arcred = (int)interpolate(255, 0, 0, rstep, rsteps);
-                                    int arcblue  = (int)interpolate(0, 255, 0, rstep, rsteps);
-                                    int arcgreen = 0;
+                                    int alpha = 70;
+                                    if(cbArc.Checked)
+                                    {
+                                        alpha = 255;
+                                    }
+                                    double rmax = 1000;
+                                    double rcurrent = 1 + (rmax * (Math.Pow((rstep / rsteps), 6)));
+                                    Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent);
+                                    Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
+                                    Rectangle myrectangle = new Rectangle(mytopcorner, mysize);
+                                    float mytheta = (float)((360 * truetheta) / (Math.PI * 2 * rcurrent));
+                                    int mythetadegrees = (int)((360 * mytheta) / (Math.PI * 2));
+                                    try
+                                    {
+                                        int arcred = (int)interpolate(255, 0, 0, rstep, rsteps);
+                                        int arcblue = (int)interpolate(0, 255, 0, rstep, rsteps);
+                                        int arcgreen = 0;
 
-                                    Color arcColor = System.Drawing.Color.FromArgb(70, arcred, arcgreen, arcblue);
-                                    Brush arcBrush = new SolidBrush(arcColor);
-                                    Pen arcPen = new Pen(arcBrush);
-                                    //arcPen.EndCap = System.Drawing.Drawing2D.LineCap.DiamondAnchor;
+                                        Color arcColor = System.Drawing.Color.FromArgb(alpha, arcred, arcgreen, arcblue);
+                                        Brush arcBrush = new SolidBrush(arcColor);
+                                        Pen arcPen = new Pen(arcBrush);
+                                        //arcPen.EndCap = System.Drawing.Drawing2D.LineCap.DiamondAnchor;
 
-                                    g.DrawArc(arcPen, myrectangle, 0, (-1) * mytheta);
-                                    //g.DrawRectangle(z4Pen, myrectangle);
+                                        g.DrawArc(arcPen, myrectangle, 0, (-1) * mytheta);
+                                        //g.DrawRectangle(z4Pen, myrectangle);
 
+                                    }
+                                    catch (Exception earc)
+                                    {
+                                        MessageBox.Show(earc.Message);
+                                    }
                                 }
-                                catch (Exception earc)
+                                catch (Exception esweep)
                                 {
-                                    MessageBox.Show(earc.Message);
+                                    //MessageBox.Show(esweep.Message);
                                 }
-                            }
-                            catch (Exception esweep)
-                            {
-                                //MessageBox.Show(esweep.Message);
                             }
                         }
                     }
