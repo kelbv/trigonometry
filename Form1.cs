@@ -178,6 +178,20 @@ namespace blank2
             drawStuff(true);
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.MouseWheel += new MouseEventHandler(picImage_MouseWheel);
+        }
+
+        // Respond to the mouse wheel.
+        private void picImage_MouseWheel(object sender, MouseEventArgs e)
+        {
+            // The amount by which we adjust scale per wheel click.
+            const float scale_per_delta = -1 *  0.1f / 120;
+
+            maxmodud.Value = Math.Min(maxmodud.Maximum,Math.Max(maxmodud.Minimum,(decimal)(maxmodud.Value + (decimal)(e.Delta * scale_per_delta))));
+        }
+
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
         {
             if (x1 == x2)

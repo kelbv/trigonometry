@@ -181,6 +181,7 @@
             this.Name = "Form1";
             this.Text = "Sine Cosine and Tan";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).EndInit();
