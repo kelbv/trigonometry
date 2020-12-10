@@ -164,7 +164,7 @@ namespace blank2
 
         private void maxmodud_ValueChanged(object sender, EventArgs e)
         {
-            maxMod = (int)maxmodud.Value + 0.5;
+            maxMod = (double)maxmodud.Value + 0.5;
             drawStuff(true);
         }
 
@@ -321,7 +321,7 @@ namespace blank2
                 z1Point = getCoord(z1.getReal(), z1.getImag(), dotsPerUnit, pbw, pbh);
                 // g.FillEllipse(z2Brush, z1Point.X - 3, z1Point.Y - 3, 6, 6);
 
-                double theta = Math.Atan2(z1.getImag(), z1.getReal());
+                double theta = Math.Round(Math.Atan2(z1.getImag(), z1.getReal()),3);
                 if (theta < 0)
                 {
                     theta = theta + (Math.PI * 2);
@@ -342,8 +342,8 @@ namespace blank2
                 string text1stuff = "";
                 //double scsc = sss * ccc;
 
-                text1stuff += "    theta  = " + string.Format("{0:0.00000}", thetadegrees * (-1)) + " (degrees)\r\n";
-                text1stuff += "    theta  = " + string.Format("{0:0.00000}", theta) + " (radians)\r\n";
+                text1stuff += "    theta  = " + string.Format("{0:0.000}", thetadegrees * (-1)) + " (degrees)\r\n";
+                text1stuff += "    theta  = " + string.Format("{0:0.000}", theta) + " (radians)\r\n";
                 text1stuff += "sin(theta) = " + string.Format("{0:0.00000}", Math.Sin(theta)) + "\r\n";
                 text1stuff += "cos(theta) = " + string.Format("{0:0.00000}", Math.Cos(theta)) + "\r\n";
                 Point ztan = getCoord(0, 0, dotsPerUnit, pbw, pbh);
@@ -409,7 +409,7 @@ namespace blank2
                                     int arcblue  = (int)interpolate(0, 255, 0, rstep, rsteps);
                                     int arcgreen = 0;
 
-                                    Color arcColor = System.Drawing.Color.FromArgb(30, arcred, arcgreen, arcblue);
+                                    Color arcColor = System.Drawing.Color.FromArgb(70, arcred, arcgreen, arcblue);
                                     Brush arcBrush = new SolidBrush(arcColor);
                                     Pen arcPen = new Pen(arcBrush);
                                     //arcPen.EndCap = System.Drawing.Drawing2D.LineCap.DiamondAnchor;
@@ -437,7 +437,7 @@ namespace blank2
                         g.DrawLine(Z3MinusPen, ztan, ztanz);
                         //g.DrawString("tan", drawFont, z3Brush, ztan);
                         g.DrawString("tan " + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush, ztanz.X, ztanz.Y - 14);
-                        text1stuff += "tan(theta) = " + string.Format("{0:0.00}", Math.Tan(theta));
+                        text1stuff += "tan(theta) = " + string.Format("{0:0.0000}", Math.Tan(theta));
                     }
                     catch (Exception eeeee)
                     {

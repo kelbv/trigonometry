@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbSnapToDegrees = new System.Windows.Forms.CheckBox();
             this.cbDrawArcs = new System.Windows.Forms.CheckBox();
             this.maxmodud = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -37,8 +39,6 @@
             this.rbAnglesRadians = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cbSnapToDegrees = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -59,6 +59,26 @@
             this.panel1.Size = new System.Drawing.Size(239, 571);
             this.panel1.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 150);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "scale";
+            // 
+            // cbSnapToDegrees
+            // 
+            this.cbSnapToDegrees.AutoSize = true;
+            this.cbSnapToDegrees.Location = new System.Drawing.Point(18, 87);
+            this.cbSnapToDegrees.Name = "cbSnapToDegrees";
+            this.cbSnapToDegrees.Size = new System.Drawing.Size(102, 17);
+            this.cbSnapToDegrees.TabIndex = 6;
+            this.cbSnapToDegrees.Text = "snap to degrees";
+            this.cbSnapToDegrees.UseVisualStyleBackColor = true;
+            this.cbSnapToDegrees.CheckedChanged += new System.EventHandler(this.cbSnapToDegrees_CheckedChanged);
+            // 
             // cbDrawArcs
             // 
             this.cbDrawArcs.AutoSize = true;
@@ -72,6 +92,12 @@
             // 
             // maxmodud
             // 
+            this.maxmodud.DecimalPlaces = 1;
+            this.maxmodud.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.maxmodud.Location = new System.Drawing.Point(53, 148);
             this.maxmodud.Maximum = new decimal(new int[] {
             8,
@@ -143,26 +169,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            // 
-            // cbSnapToDegrees
-            // 
-            this.cbSnapToDegrees.AutoSize = true;
-            this.cbSnapToDegrees.Location = new System.Drawing.Point(18, 87);
-            this.cbSnapToDegrees.Name = "cbSnapToDegrees";
-            this.cbSnapToDegrees.Size = new System.Drawing.Size(102, 17);
-            this.cbSnapToDegrees.TabIndex = 6;
-            this.cbSnapToDegrees.Text = "snap to degrees";
-            this.cbSnapToDegrees.UseVisualStyleBackColor = true;
-            this.cbSnapToDegrees.CheckedChanged += new System.EventHandler(this.cbSnapToDegrees_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 150);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "scale";
             // 
             // Form1
             // 
