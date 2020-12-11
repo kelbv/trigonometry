@@ -41,6 +41,7 @@
             this.rbAnglesRadians = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.arcUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
@@ -50,6 +51,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.cbArc);
             this.panel1.Controls.Add(this.arcUd);
             this.panel1.Controls.Add(this.label1);
@@ -67,17 +69,18 @@
             // cbArc
             // 
             this.cbArc.AutoSize = true;
-            this.cbArc.Location = new System.Drawing.Point(53, 200);
+            this.cbArc.Location = new System.Drawing.Point(144, 310);
             this.cbArc.Name = "cbArc";
             this.cbArc.Size = new System.Drawing.Size(62, 17);
             this.cbArc.TabIndex = 9;
             this.cbArc.Text = "one arc";
             this.cbArc.UseVisualStyleBackColor = true;
+            this.cbArc.Visible = false;
             this.cbArc.CheckedChanged += new System.EventHandler(this.cbArc_CheckedChanged);
             // 
             // arcUd
             // 
-            this.arcUd.Location = new System.Drawing.Point(53, 174);
+            this.arcUd.Location = new System.Drawing.Point(18, 310);
             this.arcUd.Maximum = new decimal(new int[] {
             50,
             0,
@@ -91,13 +94,14 @@
             0,
             0,
             0});
+            this.arcUd.Visible = false;
             this.arcUd.ValueChanged += new System.EventHandler(this.arcUd_ValueChanged);
             this.arcUd.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.arcud_MouseWheel);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 150);
+            this.label1.Location = new System.Drawing.Point(17, 112);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 7;
@@ -117,12 +121,13 @@
             // cbDrawArcs
             // 
             this.cbDrawArcs.AutoSize = true;
-            this.cbDrawArcs.Location = new System.Drawing.Point(18, 110);
+            this.cbDrawArcs.Location = new System.Drawing.Point(18, 287);
             this.cbDrawArcs.Name = "cbDrawArcs";
             this.cbDrawArcs.Size = new System.Drawing.Size(72, 17);
             this.cbDrawArcs.TabIndex = 5;
             this.cbDrawArcs.Text = "draw arcs";
             this.cbDrawArcs.UseVisualStyleBackColor = true;
+            this.cbDrawArcs.Visible = false;
             this.cbDrawArcs.CheckedChanged += new System.EventHandler(this.cbDrawArcs_CheckedChanged);
             // 
             // maxmodud
@@ -133,7 +138,7 @@
             0,
             0,
             65536});
-            this.maxmodud.Location = new System.Drawing.Point(53, 148);
+            this.maxmodud.Location = new System.Drawing.Point(55, 110);
             this.maxmodud.Maximum = new decimal(new int[] {
             8,
             0,
@@ -203,7 +208,19 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(18, 149);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(170, 104);
+            this.textBox2.TabIndex = 10;
+            this.textBox2.Text = "Click right mouse button to toggle arcs, click middle mousebutton to repeat sweep" +
+    " of arc from circle to tangent";
             // 
             // Form1
             // 
@@ -242,6 +259,7 @@
         private System.Windows.Forms.CheckBox cbSnapToDegrees;
         private System.Windows.Forms.CheckBox cbArc;
         private System.Windows.Forms.NumericUpDown arcUd;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

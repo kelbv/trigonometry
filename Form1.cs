@@ -18,6 +18,7 @@ namespace blank2
         List<Point> traces;
         int pbw;
         int pbh;
+        int ytranslation;
         complexnumber z1, z2, z3;
         complexnumber xoyo;
         complexnumber dragger;
@@ -50,10 +51,12 @@ namespace blank2
             g.FillRectangle(f2b, 0, 0, pbw, pbh);
             pictureBox1.Image = b;
             pictureBox1.Refresh();
-            maxMod = 1.5;
+            maxMod = 2;
+
             dotsPerUnit = (pbh / (maxMod  )) / 2.0;
             pictureBox1.Invalidate();
             drawStuff(true);
+
         }
 
         public bool onGraph(int x, int y)
@@ -79,7 +82,7 @@ namespace blank2
             // Y
             // zero is height / 2;
             // y is zero - y * dotsPerUnit
-            int ycoord = (int)(pbh / 2 - y * dotsPerUnit);
+            int ycoord = (int)(pbh / 2 - y * dotsPerUnit + ytranslation) ;
             return new Point(xcoord, ycoord);
         }
 
@@ -170,7 +173,10 @@ namespace blank2
 
         private void cbDrawArcs_CheckedChanged(object sender, EventArgs e)
         {
-            drawStuff(true);
+            if (cbDrawArcs.Checked == false)
+            {
+                drawStuff(true);
+            }
         }
 
         private void cbSnapToDegrees_CheckedChanged(object sender, EventArgs e)
@@ -186,10 +192,16 @@ namespace blank2
         // Respond to the mouse wheel.
         private void picImage_MouseWheel(object sender, MouseEventArgs e)
         {
-            // The amount by which we adjust scale per wheel click.
-            const float scale_per_delta = -1 *  0.1f / 120;
+            try
+            {
+                    // The amount by which we adjust scale per wheel click.
+                    const float scale_per_delta = -1 * 0.1f / 120;
+                    maxmodud.Value = Math.Min(maxmodud.Maximum, Math.Max(maxmodud.Minimum, (decimal)(maxmodud.Value + (decimal)(e.Delta * scale_per_delta))));
+            }
+            catch (Exception eee)
+            {
 
-            maxmodud.Value = Math.Min(maxmodud.Maximum,Math.Max(maxmodud.Minimum,(decimal)(maxmodud.Value + (decimal)(e.Delta * scale_per_delta))));
+            }
         }
 
         private void arcud_MouseWheel(object sender, MouseEventArgs e)
@@ -219,7 +231,39 @@ namespace blank2
 
         private void cbArc_CheckedChanged(object sender, EventArgs e)
         {
-            drawStuff(true);
+            if (cbArc.Checked)
+            {
+                for (int i = (int)arcUd.Minimum; i < arcUd.Maximum; i++)
+                {
+                    arcUd.Value = (decimal)i;
+                }
+                cbArc.Checked = false;
+                drawStuff(true);
+            }
+        }
+
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle || e.Button == MouseButtons.Right)
+            {
+                if (cbDrawArcs.Checked)
+                {
+                    if (e.Button == MouseButtons.Middle)
+                    {
+                        cbArc.Checked = true;
+                    }
+                    else
+                    {
+                        cbDrawArcs.Checked = false;
+                    }
+                }
+                else
+                {
+                    cbDrawArcs.Checked = true;
+                    cbArc.Checked = true;
+                }
+                //cbDrawArcs.Checked = false;
+            }
         }
 
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
@@ -248,7 +292,7 @@ namespace blank2
             {
                 real = (int)(real);
             }
-            double imag = (pbh / 2 - y) / dotsPerUnit;
+            double imag = ((pbh / 2 - y) + ytranslation) / dotsPerUnit;
             if (Math.Abs(imag - (int)(imag)) < 0.0001)
             {
                 imag = (int)(imag);
@@ -267,6 +311,8 @@ namespace blank2
                 pbh = pictureBox1.Height;
                 b = new Bitmap(pbw, pbh);
                 dotsPerUnit = (pbh / (maxMod)) / 2.0;
+                //ytranslation = (int)((maxMod / 2) * dotsPerUnit);
+                ytranslation = 0;
                 g = Graphics.FromImage(b);
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 Font drawFont = new Font("Lucida Console", 8);
@@ -511,7 +557,14 @@ namespace blank2
                     {
                         g.DrawString(string.Format("{0:0.00}", theta), drawFont, z3Brush, zThetatext);
                     }
-                    textBox1.Text = text1stuff;
+                    if (cbArc.Checked)
+                    {
+                        textBox1.Text = "";
+                    }
+                    else
+                    {
+                        textBox1.Text = text1stuff;
+                    }
                     textBox1.Refresh();
 
                 }
