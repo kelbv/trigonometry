@@ -469,15 +469,16 @@ namespace blank2
                 try
                 {
                     ztan = getCoord(1*radius, ttt);
-                    Point ztanz = getCoord(0, ttt);
+                    Point zrealTan = getCoord(1, Math.Tan(theta));
+                    Point ztanz = getCoord(0, Math.Tan(theta));
                     double radiusPosition = 2 / 3.0;
                     Point radiusText = getCoord(ccc*radiusPosition, sss* radiusPosition);
 
 
                     Point zero = getCoord(0, 0);
-                    Point minusThree = getCoord(1*radius, -10);
-                    Point onezero = getCoord(1*radius, 0);
-                    Point plusThree = getCoord(1*radius, 10);
+                    Point radiustangentbottom = getCoord(1*radius, -10);
+                    Point radiuszero = getCoord(1*radius, 0);
+                    Point radiustangenttop = getCoord(1*radius, 10);
                     Point zCircle = getCoord(ccc, sss);
                     Point zThetatext = getCoord(0.15*radius, 0.15*radius);
                     Point zx = getCoord(ccc, 0);
@@ -487,7 +488,7 @@ namespace blank2
 
                     try
                     {
-                        g.DrawLine(Z2MinusPen, zCircle, ztan);
+                        g.DrawLine(Z2MinusPen, zCircle, zrealTan);
                     }
                     catch (Exception eeee)
                     {
@@ -495,16 +496,16 @@ namespace blank2
                     }
                     g.DrawString(string.Format("{0:0.00}", radius), drawFont, z3Brush, radiusText);
                     g.DrawLine(z2Pen, zero, zCircle);
-                    g.DrawLine(z2Pen, minusThree, plusThree);
+                    g.DrawLine(z2Pen, radiustangentbottom, radiustangenttop);
                     g.DrawLine(Z3MinusPen, zCircle, zx);
                     g.DrawLine(Z3MinusPen, zCircle, zy);
                     g.FillEllipse(z3Brush, zx.X - 3, zero.Y - 3, 6, 6);
                     //g.FillEllipse(z3Brush, zscsc.X - 3, zscsc.Y - 3, 6, 6);
-                    g.DrawString(" rcos(θ) " + string.Format("{0:0.00}", Math.Cos(theta)*radius), drawFont, z3Brush, zx);
+                    g.DrawString(" rcos(θ) = " + string.Format("{0:0.00}", Math.Cos(theta)*radius), drawFont, z3Brush, zx);
                     g.FillEllipse(z3Brush, zero.X - 3, zy.Y - 3, 6, 6);
-                    g.DrawString(" rsin(θ)" + string.Format("{0:0.00}", Math.Sin(theta)*radius), drawFont, z3Brush, zy.X, zy.Y + 5);
+                    g.DrawString(" rsin(θ) = " + string.Format("{0:0.00}", Math.Sin(theta)*radius), drawFont, z3Brush, zy.X, zy.Y + 5);
                     g.FillEllipse(z4Brush, zArcLength.X - 3, zArcLength.Y - 3, 6, 6);
-                    g.DrawString(" arc length " + string.Format("{0:0.00}", theta * radius), drawFont, z4Brush, zArcLength.X + 18, zArcLength.Y);
+                    g.DrawString(" arc length = " + string.Format("{0:0.00}", theta * radius), drawFont, z4Brush, zArcLength.X + 18, zArcLength.Y);
                     if (cbDrawArcs.Checked == false)
                     {
                         g.DrawLine(z4Pen, zCircle, zArcLength);
@@ -512,7 +513,7 @@ namespace blank2
                     }
                     else
                     {
-                        g.DrawLine(z4Pen, onezero, zArcLength);
+                        g.DrawLine(z4Pen, radiuszero, zArcLength);
                         double rsteps = Math.Min(thetadegrees * (-1) * 2, 150);
                         arcUd.Maximum = (int)rsteps;
                         //double rsteps = 50;
@@ -530,7 +531,7 @@ namespace blank2
                                     double rmax = 1000;
                                     double rcurrent = radius* (1 + (rmax * (Math.Pow((rstep / rsteps), 6))));
                                     Point mytopcorner = getCoord(radius - (2 * rcurrent), rcurrent);
-                                    Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
+                                    Size mysize = new Size(radiustangentbottom.X - mytopcorner.X, radiustangentbottom.X - mytopcorner.X);
                                     Rectangle myrectangle = new Rectangle(mytopcorner, mysize);
                                     float mytheta = (float)((360 * truetheta) / (Math.PI * 2 * rcurrent));
                                     try
@@ -563,11 +564,11 @@ namespace blank2
 
                     try
                     {
-                        g.FillEllipse(z2Brush, minusThree.X - 3, ztan.Y - 3, 6, 6);
+                        g.FillEllipse(z2Brush, radiustangentbottom.X - 3, ztan.Y - 3, 6, 6);
                         g.FillEllipse(z3Brush, ztanz.X - 3, ztanz.Y - 3, 6, 6);
-                        g.DrawLine(Z3MinusPen, ztan, ztanz);
+                        g.DrawLine(Z3MinusPen, zrealTan, ztanz);
                         //g.DrawString("tan", drawFont, z3Brush, ztan);
-                        g.DrawString("tan(θ)" + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush, ztanz.X, ztanz.Y - 14);
+                        g.DrawString("tan(θ) = " + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush, ztanz.X, ztanz.Y - 14);
                         text1stuff += "tan(theta) = " + string.Format("{0:0.0000}", Math.Tan(theta));
                     }
                     catch (Exception eeeee)
