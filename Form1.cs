@@ -39,7 +39,7 @@ namespace blank2
             unitdraggerX = new complexnumber(0, 0);
             z1 = new complexnumber(0, 0);
             z2 = new complexnumber(0, 0);
-            z3 = new complexnumber(0, 0);
+            z3 = new complexnumber(1, 0);
 
             DoubleBuffered = true;
             pbw = pictureBox1.Width;
@@ -110,46 +110,68 @@ namespace blank2
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            pbw = pictureBox1.Width;
-            pbh = pictureBox1.Height;
-
-            if (onGraph(e.X, e.Y))
+            try
             {
-                if (e.Button == MouseButtons.Left)
-                {
-                    //textBox1.AppendText("left " + e.X + "," + e.Y);
-                    z1 = resolvePoint(e.X, e.Y);
-                    ////////maxMod = Math.Max(Math.Max(z1.getModulus(), z2.getModulus()), z3.getModulus());
-                    ////////if ((pbh / (maxMod + 1)) / 2 > 10)
-                    ////////{
-                    ////////    dotsPerUnit = (pbh / (maxMod + 1)) / 2;
-                    ////////}
-                    //dotsPerUnit = 75;
-                    drawStuff(true);
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    //textBox1.AppendText("right " + e.X + "," + e.Y);
-                    z2 = resolvePoint(e.X, e.Y);
-                    //////maxMod = Math.Max(Math.Max(z1.getModulus(), z2.getModulus()), z3.getModulus());
-                    //////if ((pbh / (maxMod + 1)) / 2 > 10)
-                    //////{
-                    //////    dotsPerUnit = (pbh / (maxMod + 1)) / 2;
-                    //////}
+                pbw = pictureBox1.Width;
+                pbh = pictureBox1.Height;
 
-                    //dotsPerUnit = 75;              
-                    drawStuff(true);
+                if (onGraph(e.X, e.Y))
+                {
+                    if (e.Button.ToString() == "Left, Right")
+                    {
+                        z3 = resolvePoint(e.X, e.Y);
+                        if (Math.Abs(z3.getModulus() - Math.Round(z3.getModulus())) < 0.1)
+                        {
+                            z3 = new complexnumber(Math.Round(z3.getModulus()), 0);
+                        }
+                        if (cbDrawArcs.Checked)
+                        {
+                            cbDrawArcs.Checked = false;
+                        }
+                        else
+                        {
+                            drawStuff(true);
+                        }
+                    }
+                    else
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            //textBox1.AppendText("left " + e.X + "," + e.Y);
+                            z1 = resolvePoint(e.X, e.Y);
+                            ////////maxMod = Math.Max(Math.Max(z1.getModulus(), z2.getModulus()), z3.getModulus());
+                            ////////if ((pbh / (maxMod + 1)) / 2 > 10)
+                            ////////{
+                            ////////    dotsPerUnit = (pbh / (maxMod + 1)) / 2;
+                            ////////}
+                            //dotsPerUnit = 75;
+                            drawStuff(true);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            //textBox1.AppendText("right " + e.X + "," + e.Y);
+                            z2 = resolvePoint(e.X, e.Y);
+                            //////maxMod = Math.Max(Math.Max(z1.getModulus(), z2.getModulus()), z3.getModulus());
+                            //////if ((pbh / (maxMod + 1)) / 2 > 10)
+                            //////{
+                            //////    dotsPerUnit = (pbh / (maxMod + 1)) / 2;
+                            //////}
+
+                            //dotsPerUnit = 75;              
+                            drawStuff(true);
+                        }
+                    }
+                    return;
+                    //textBox1.SelectionStart = 0;
+                    //textBox1.SelectionLength = 0;
+                    //textBox1.ScrollToCaret();
                 }
                 else
                 {
                     return;
                 }
-                //textBox1.SelectionStart = 0;
-                //textBox1.SelectionLength = 0;
-                //textBox1.ScrollToCaret();
-
             }
-            else
+            catch (Exception eee)
             {
                 return;
             }
@@ -307,6 +329,7 @@ namespace blank2
         {
             try
             {
+                double radius = z3.getModulus();
                 pbw = pictureBox1.Width;
                 pbh = pictureBox1.Height;
                 b = new Bitmap(pbw, pbh);
@@ -315,7 +338,7 @@ namespace blank2
                 ytranslation = 0;
                 g = Graphics.FromImage(b);
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                Font drawFont = new Font("Lucida Console", 8);
+                Font drawFont = new Font("Lucida Sans Unicode", 8);
 
 
                 Color paperColor = System.Drawing.Color.White;
@@ -348,7 +371,7 @@ namespace blank2
                 Z2MinusPen.DashPattern = new float[] { 3.0F, 3.0F };
                 z2Pen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
 
-                Color z3Color = System.Drawing.Color.DarkGreen;
+                Color z3Color = System.Drawing.Color.Black;
                 Brush z3Brush = new SolidBrush(z3Color);
                 Pen z3Pen = new Pen(z3Brush);
                 Pen Z3MinusPen = new Pen(z3Brush);
@@ -395,16 +418,16 @@ namespace blank2
                     g.DrawLine(axisPen, getCoord(0, yscale), getCoord(0, yscale * -1));
                 }
                 Rectangle bound = new Rectangle(
-                             getCoord(-1, 1).X,
-                             getCoord(-1, 1).Y,
-                             (int)(dotsPerUnit * 2),
-                             (int)(dotsPerUnit * 2));
+                             getCoord(-1*radius, 1*radius).X,
+                             getCoord(-1*radius, 1*radius).Y,
+                             (int)(dotsPerUnit * 2*radius),
+                             (int)(dotsPerUnit * 2* radius));
 
                 Rectangle boundArc = new Rectangle(
-                 getCoord(-0.4, 0.4).X,
-                 getCoord(-0.4, 0.4).Y,
-                 (int)(dotsPerUnit * 0.8),
-                 (int)(dotsPerUnit * 0.8));
+                 getCoord(-0.4*radius, 0.4*radius).X,
+                 getCoord(-0.4 * radius, 0.4 * radius).Y,
+                 (int)(dotsPerUnit * 0.8*radius),
+                 (int)(dotsPerUnit * 0.8*radius));
 
                  //Size unitsquare = new Size((int)dotsPerUnit, (int)dotsPerUnit);
                  //Rectangle nr = new Rectangle(getCoord(z2.getReal() - 0.5, z2.getImag() + 0.5), unitsquare);
@@ -430,12 +453,14 @@ namespace blank2
                     theta = (thetadegrees / 360.0) * Math.PI * 2 * (-1);
                     truetheta = theta;
                 }
-                double sss = Math.Sin(theta);
-                double ccc = Math.Cos(theta);
-                double ttt = Math.Tan(theta);
+                double sss = Math.Sin(theta) * radius;
+                double ccc = Math.Cos(theta) * radius;
+                double ttt = Math.Tan(theta) * radius;
                 string text1stuff = "";
                 //double scsc = sss * ccc;
 
+
+                text1stuff += "   radius  = " + string.Format("{0:0.000}", radius) + "\r\n";
                 text1stuff += "    theta  = " + string.Format("{0:0.000}", thetadegrees * (-1)) + " (degrees)\r\n";
                 text1stuff += "    theta  = " + string.Format("{0:0.000}", theta) + " (radians)\r\n";
                 text1stuff += "sin(theta) = " + string.Format("{0:0.00000}", Math.Sin(theta)) + "\r\n";
@@ -443,19 +468,21 @@ namespace blank2
                 Point ztan = getCoord(0, 0);
                 try
                 {
-                    ztan = getCoord(1, ttt);
+                    ztan = getCoord(1*radius, ttt);
                     Point ztanz = getCoord(0, ttt);
+                    double radiusPosition = 2 / 3.0;
+                    Point radiusText = getCoord(ccc*radiusPosition, sss* radiusPosition);
 
 
                     Point zero = getCoord(0, 0);
-                    Point minusThree = getCoord(1, -10);
-                    Point onezero = getCoord(1, 0);
-                    Point plusThree = getCoord(1, 10);
+                    Point minusThree = getCoord(1*radius, -10);
+                    Point onezero = getCoord(1*radius, 0);
+                    Point plusThree = getCoord(1*radius, 10);
                     Point zCircle = getCoord(ccc, sss);
-                    Point zThetatext = getCoord(0.15, 0.15);
+                    Point zThetatext = getCoord(0.15*radius, 0.15*radius);
                     Point zx = getCoord(ccc, 0);
                     Point zy = getCoord(0, sss);
-                    Point zArcLength = getCoord(1, theta);
+                    Point zArcLength = getCoord(1*radius, theta*radius);
                     //Point zscsc = getCoord(scsc, 0);
 
                     try
@@ -466,17 +493,18 @@ namespace blank2
                     {
 
                     }
+                    g.DrawString(string.Format("{0:0.00}", radius), drawFont, z3Brush, radiusText);
                     g.DrawLine(z2Pen, zero, zCircle);
                     g.DrawLine(z2Pen, minusThree, plusThree);
                     g.DrawLine(Z3MinusPen, zCircle, zx);
                     g.DrawLine(Z3MinusPen, zCircle, zy);
                     g.FillEllipse(z3Brush, zx.X - 3, zero.Y - 3, 6, 6);
                     //g.FillEllipse(z3Brush, zscsc.X - 3, zscsc.Y - 3, 6, 6);
-                    g.DrawString("cos " + string.Format("{0:0.00}", Math.Cos(theta)), drawFont, z3Brush, zx);
+                    g.DrawString(" rcos(θ) " + string.Format("{0:0.00}", Math.Cos(theta)*radius), drawFont, z3Brush, zx);
                     g.FillEllipse(z3Brush, zero.X - 3, zy.Y - 3, 6, 6);
-                    g.DrawString("sin " + string.Format("{0:0.00}", Math.Sin(theta)), drawFont, z3Brush, zy.X, zy.Y + 5);
+                    g.DrawString(" rsin(θ)" + string.Format("{0:0.00}", Math.Sin(theta)*radius), drawFont, z3Brush, zy.X, zy.Y + 5);
                     g.FillEllipse(z4Brush, zArcLength.X - 3, zArcLength.Y - 3, 6, 6);
-                    g.DrawString("arc length " + string.Format("{0:0.00}", theta), drawFont, z4Brush, zArcLength.X + 18, zArcLength.Y);
+                    g.DrawString(" arc length " + string.Format("{0:0.00}", theta * radius), drawFont, z4Brush, zArcLength.X + 18, zArcLength.Y);
                     if (cbDrawArcs.Checked == false)
                     {
                         g.DrawLine(z4Pen, zCircle, zArcLength);
@@ -500,12 +528,11 @@ namespace blank2
                                         alpha = 255;
                                     }
                                     double rmax = 1000;
-                                    double rcurrent = 1 + (rmax * (Math.Pow((rstep / rsteps), 6)));
-                                    Point mytopcorner = getCoord(1 - (2 * rcurrent), rcurrent);
+                                    double rcurrent = radius* (1 + (rmax * (Math.Pow((rstep / rsteps), 6))));
+                                    Point mytopcorner = getCoord(radius - (2 * rcurrent), rcurrent);
                                     Size mysize = new Size(minusThree.X - mytopcorner.X, minusThree.X - mytopcorner.X);
                                     Rectangle myrectangle = new Rectangle(mytopcorner, mysize);
                                     float mytheta = (float)((360 * truetheta) / (Math.PI * 2 * rcurrent));
-                                    int mythetadegrees = (int)((360 * mytheta) / (Math.PI * 2));
                                     try
                                     {
                                         int arcred = (int)interpolate(255, 0, 0, rstep, rsteps);
@@ -517,7 +544,7 @@ namespace blank2
                                         Pen arcPen = new Pen(arcBrush);
                                         //arcPen.EndCap = System.Drawing.Drawing2D.LineCap.DiamondAnchor;
 
-                                        g.DrawArc(arcPen, myrectangle, 0, (-1) * mytheta);
+                                        g.DrawArc(arcPen, myrectangle, 0, (-1) * mytheta * (float)radius);
                                         //g.DrawRectangle(z4Pen, myrectangle);
 
                                     }
@@ -540,7 +567,7 @@ namespace blank2
                         g.FillEllipse(z3Brush, ztanz.X - 3, ztanz.Y - 3, 6, 6);
                         g.DrawLine(Z3MinusPen, ztan, ztanz);
                         //g.DrawString("tan", drawFont, z3Brush, ztan);
-                        g.DrawString("tan " + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush, ztanz.X, ztanz.Y - 14);
+                        g.DrawString("tan(θ)" + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush, ztanz.X, ztanz.Y - 14);
                         text1stuff += "tan(theta) = " + string.Format("{0:0.0000}", Math.Tan(theta));
                     }
                     catch (Exception eeeee)
