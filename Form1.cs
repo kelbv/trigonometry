@@ -333,6 +333,12 @@ namespace blank2
             btnTheta_Click(sender, e);
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            textBox3.Visible = checkBox1.Checked;
+            displayerrors = checkBox1.Checked;
+        }
+
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
         {
             if (x1 == x2)
