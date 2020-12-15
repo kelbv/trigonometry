@@ -184,6 +184,16 @@ namespace blank2
 
         private void rbAnglesDegrees_CheckedChanged(object sender, EventArgs e)
         {
+            if (rbAnglesDegrees.Checked)
+            {
+                thetaUd.Value = (decimal)(Math.Round((double)thetaUd.Value * 360 / (Math.PI * 2),1));
+                thetaUd.Increment = (decimal)0.1;
+            }
+            else
+            {
+                thetaUd.Value = (decimal)(Math.Round(((double)thetaUd.Value * Math.PI / 180),2));
+                thetaUd.Increment = (decimal)0.01;
+            }
             drawStuff(true);
         }
 
@@ -286,6 +296,27 @@ namespace blank2
                 }
                 //cbDrawArcs.Checked = false;
             }
+        }
+
+        private void btnTheta_Click(object sender, EventArgs e)
+        {
+            double mytheta;
+            if (rbAnglesDegrees.Checked)
+            {
+                mytheta = (double)thetaUd.Value * (Math.PI / 180);
+            }    
+            else
+            {
+                mytheta = (double)(thetaUd.Value);
+            }
+            //z1 = new complexnumber(Math.Cos(mytheta), Math.Sin(mytheta));
+            z1 = new complexnumber(mytheta, 1, true);
+            drawStuff(true);
+        }
+
+        private void thetaUd_ValueChanged(object sender, EventArgs e)
+        {
+            btnTheta_Click(sender, e);
         }
 
         public static double interpolate(double v1, double v2, double x1, double x, double x2)
@@ -438,23 +469,26 @@ namespace blank2
                 z1Point = getCoord(z1.getReal(), z1.getImag());
                 // g.FillEllipse(z2Brush, z1Point.X - 3, z1Point.Y - 3, 6, 6);
 
-                double theta = Math.Round(Math.Atan2(z1.getImag(), z1.getReal()),3);
+                double theta = Math.Round(Math.Atan2(z1.getImag(), z1.getReal()),5);
+                //MessageBox.Show(theta.ToString());
                 if (theta < 0)
                 {
                     theta = theta + (Math.PI * 2);
                 }
                 // double ttt = Math.Tan(theta);
                 double truetheta = theta;
-                float thetadegrees = (float)((theta * 360) / (Math.PI * 2)) * -1;
+                double thetadegrees = (theta * 360) / (Math.PI * 2) * -1;
                 //float thetadegrees = (float)(((theta * 360) / (Math.PI * 2)) * -1);
                 if (rbAnglesDegrees.Checked && cbSnapToDegrees.Checked)
                 {
-                    thetadegrees = (int)thetadegrees;
+                    thetadegrees = (int)(Math.Round(thetadegrees));
                     theta = (thetadegrees / 360.0) * Math.PI * 2 * (-1);
                     truetheta = theta;
                 }
-                double sss = Math.Sin(theta) * radius;
-                double ccc = Math.Cos(theta) * radius;
+                double truecos = Math.Cos(theta);
+                double truesin = Math.Sin(theta);
+                double sss = truesin * radius;
+                double ccc = truecos * radius;
                 double ttt = Math.Tan(theta) * radius;
                 string text1stuff = "";
                 //double scsc = sss * ccc;
@@ -479,8 +513,11 @@ namespace blank2
                     Point radiustangentbottom = getCoord(1*radius, -10);
                     Point radiuszero = getCoord(1*radius, 0);
                     Point radiustangenttop = getCoord(1*radius, 10);
+                    Point unitCircle = getCoord(truecos, truesin);
                     Point zCircle = getCoord(ccc, sss);
                     Point zThetatext = getCoord(0.15*radius, 0.15*radius);
+                    Point truex = getCoord(truecos, 0);
+                    Point truey = getCoord(0, truesin);
                     Point zx = getCoord(ccc, 0);
                     Point zy = getCoord(0, sss);
                     Point zArcLength = getCoord(1*radius, theta*radius);
@@ -494,11 +531,18 @@ namespace blank2
                     {
 
                     }
-                    g.DrawString(string.Format("{0:0.00}", radius), drawFont, z3Brush, radiusText);
+                    g.DrawString(" radius = " + string.Format("{0:0.00}", radius), drawFont, z3Brush, radiusText);
                     g.DrawLine(z2Pen, zero, zCircle);
                     g.DrawLine(z2Pen, radiustangentbottom, radiustangenttop);
                     g.DrawLine(Z3MinusPen, zCircle, zx);
                     g.DrawLine(Z3MinusPen, zCircle, zy);
+                    if (radius != 1)
+                    {
+                        g.DrawLine(Z3MinusPen, unitCircle, truex);
+                        g.DrawLine(Z3MinusPen, unitCircle, truey);
+                        g.DrawString(" cos(θ) = " + string.Format("{0:0.00}",truecos), drawFont, z3Brush, truex);
+                        g.DrawString(" sin(θ) = " + string.Format("{0:0.00}",truesin), drawFont, z3Brush, truey.X, truey.Y + 5);
+                    }
                     g.FillEllipse(z3Brush, zx.X - 3, zero.Y - 3, 6, 6);
                     //g.FillEllipse(z3Brush, zscsc.X - 3, zscsc.Y - 3, 6, 6);
                     g.DrawString(" rcos(θ) = " + string.Format("{0:0.00}", Math.Cos(theta)*radius), drawFont, z3Brush, zx);
@@ -576,7 +620,7 @@ namespace blank2
 
                     }
                     g.FillEllipse(z2Brush, zCircle.X - 3, zCircle.Y - 3, 6, 6);
-                    g.DrawArc(Z2MinusPen, boundArc, 0, thetadegrees);
+                    g.DrawArc(Z2MinusPen, boundArc, 0, (float)thetadegrees);
                     if (rbAnglesDegrees.Checked)
                     {
                         g.DrawString(string.Format("{0:0.00}", thetadegrees * (-1)), drawFont, z3Brush, zThetatext);

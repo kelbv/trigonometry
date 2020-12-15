@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnTheta = new System.Windows.Forms.Button();
+            this.thetaUd = new System.Windows.Forms.NumericUpDown();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.cbArc = new System.Windows.Forms.CheckBox();
             this.arcUd = new System.Windows.Forms.NumericUpDown();
@@ -42,7 +44,9 @@
             this.rbAnglesRadians = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.thetaUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arcUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -51,6 +55,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.btnTheta);
+            this.panel1.Controls.Add(this.thetaUd);
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.cbArc);
             this.panel1.Controls.Add(this.arcUd);
@@ -66,10 +73,39 @@
             this.panel1.Size = new System.Drawing.Size(239, 571);
             this.panel1.TabIndex = 0;
             // 
+            // btnTheta
+            // 
+            this.btnTheta.Location = new System.Drawing.Point(160, 109);
+            this.btnTheta.Name = "btnTheta";
+            this.btnTheta.Size = new System.Drawing.Size(62, 23);
+            this.btnTheta.TabIndex = 12;
+            this.btnTheta.Text = "go";
+            this.btnTheta.UseVisualStyleBackColor = true;
+            this.btnTheta.Click += new System.EventHandler(this.btnTheta_Click);
+            // 
+            // thetaUd
+            // 
+            this.thetaUd.DecimalPlaces = 2;
+            this.thetaUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.thetaUd.Location = new System.Drawing.Point(68, 112);
+            this.thetaUd.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.thetaUd.Name = "thetaUd";
+            this.thetaUd.Size = new System.Drawing.Size(86, 20);
+            this.thetaUd.TabIndex = 11;
+            this.thetaUd.ValueChanged += new System.EventHandler(this.thetaUd_ValueChanged);
+            // 
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(18, 149);
+            this.textBox2.Location = new System.Drawing.Point(17, 177);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(170, 104);
@@ -112,7 +148,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 112);
+            this.label1.Location = new System.Drawing.Point(30, 147);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 7;
@@ -149,14 +185,14 @@
             0,
             0,
             65536});
-            this.maxmodud.Location = new System.Drawing.Point(55, 110);
+            this.maxmodud.Location = new System.Drawing.Point(68, 145);
             this.maxmodud.Maximum = new decimal(new int[] {
             8,
             0,
             0,
             0});
             this.maxmodud.Name = "maxmodud";
-            this.maxmodud.Size = new System.Drawing.Size(120, 20);
+            this.maxmodud.Size = new System.Drawing.Size(86, 20);
             this.maxmodud.TabIndex = 4;
             this.maxmodud.Value = new decimal(new int[] {
             1,
@@ -222,6 +258,15 @@
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 114);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "theta (θ)";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -236,6 +281,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.thetaUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.arcUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -260,6 +306,9 @@
         private System.Windows.Forms.CheckBox cbArc;
         private System.Windows.Forms.NumericUpDown arcUd;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnTheta;
+        private System.Windows.Forms.NumericUpDown thetaUd;
+        private System.Windows.Forms.Label label2;
     }
 }
 
