@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTheta = new System.Windows.Forms.Button();
             this.thetaUd = new System.Windows.Forms.NumericUpDown();
@@ -46,7 +47,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.thetaUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arcUd)).BeginInit();
@@ -73,8 +73,19 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(239, 571);
+            this.panel1.Size = new System.Drawing.Size(239, 675);
             this.panel1.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(96, 287);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.Text = "show errors";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label2
             // 
@@ -117,7 +128,7 @@
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(17, 177);
+            this.textBox2.Location = new System.Drawing.Point(18, 177);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(170, 104);
@@ -128,7 +139,7 @@
             // cbArc
             // 
             this.cbArc.AutoSize = true;
-            this.cbArc.Location = new System.Drawing.Point(144, 310);
+            this.cbArc.Location = new System.Drawing.Point(145, 414);
             this.cbArc.Name = "cbArc";
             this.cbArc.Size = new System.Drawing.Size(62, 17);
             this.cbArc.TabIndex = 9;
@@ -139,7 +150,7 @@
             // 
             // arcUd
             // 
-            this.arcUd.Location = new System.Drawing.Point(18, 310);
+            this.arcUd.Location = new System.Drawing.Point(19, 414);
             this.arcUd.Maximum = new decimal(new int[] {
             50,
             0,
@@ -155,7 +166,6 @@
             0});
             this.arcUd.Visible = false;
             this.arcUd.ValueChanged += new System.EventHandler(this.arcUd_ValueChanged);
-            this.arcUd.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.arcud_MouseWheel);
             // 
             // label1
             // 
@@ -207,10 +217,10 @@
             this.maxmodud.Size = new System.Drawing.Size(86, 20);
             this.maxmodud.TabIndex = 4;
             this.maxmodud.Value = new decimal(new int[] {
-            1,
+            15,
             0,
             0,
-            0});
+            65536});
             this.maxmodud.ValueChanged += new System.EventHandler(this.maxmodud_ValueChanged);
             // 
             // groupBox1
@@ -252,7 +262,7 @@
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.textBox1.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(0, 336);
+            this.textBox1.Location = new System.Drawing.Point(0, 440);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(239, 235);
@@ -263,7 +273,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(239, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(494, 571);
+            this.pictureBox1.Size = new System.Drawing.Size(494, 675);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.SizeChanged += new System.EventHandler(this.pictureBox1_SizeChanged);
@@ -279,22 +289,11 @@
             this.textBox3.Size = new System.Drawing.Size(390, 129);
             this.textBox3.TabIndex = 2;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(96, 287);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "show errors";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(733, 571);
+            this.ClientSize = new System.Drawing.Size(733, 675);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
