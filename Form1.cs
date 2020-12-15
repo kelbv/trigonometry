@@ -29,10 +29,13 @@ namespace blank2
         Point z1Point;
         Bitmap b;
         Graphics g;
+        bool displayerrors;
 
         public Form1()
         {
             InitializeComponent();
+            displayerrors = false;
+            textBox3.Visible = displayerrors;
             xoyo = new complexnumber(3, 4);
             dragger = new complexnumber(0, 0);
             unitdraggerY = new complexnumber(0, 0);
@@ -173,6 +176,10 @@ namespace blank2
             }
             catch (Exception eee)
             {
+                if (displayerrors)
+                {
+                    textBox3.Text += "\r\n001";
+                }
                 return;
             }
         }
@@ -232,7 +239,10 @@ namespace blank2
             }
             catch (Exception eee)
             {
-
+                if (displayerrors)
+                {
+                    textBox3.Text += "\r\n002";
+                }
             }
         }
 
@@ -252,9 +262,13 @@ namespace blank2
             //}
             //catch (Exception ignoreme)
             //{
+            //if (displayerrors)
+            //{
+            //    // textBox3.Text += "\r\n003";
 
             //}
-        }
+                //}
+            }
 
         private void arcUd_ValueChanged(object sender, EventArgs e)
         {
@@ -497,39 +511,45 @@ namespace blank2
                 text1stuff += "   radius  = " + string.Format("{0:0.000}", radius) + "\r\n";
                 text1stuff += "    theta  = " + string.Format("{0:0.000}", thetadegrees * (-1)) + " (degrees)\r\n";
                 text1stuff += "    theta  = " + string.Format("{0:0.000}", theta) + " (radians)\r\n";
-                text1stuff += "sin(theta) = " + string.Format("{0:0.00000}", Math.Sin(theta)) + "\r\n";
-                text1stuff += "cos(theta) = " + string.Format("{0:0.00000}", Math.Cos(theta)) + "\r\n";
+                text1stuff += "sin(theta) = " + string.Format("{0:0.00000}", truesin) + "\r\n";
+                text1stuff += "cos(theta) = " + string.Format("{0:0.00000}", truecos) + "\r\n";
                 Point ztan = getCoord(0, 0);
                 try
                 {
-                    ztan = getCoord(1*radius, ttt);
+                    ztan = getCoord(1 * radius, ttt);
                     Point zrealTan = getCoord(1, Math.Tan(theta));
                     Point ztanz = getCoord(0, Math.Tan(theta));
                     double radiusPosition = 2 / 3.0;
-                    Point radiusText = getCoord(ccc*radiusPosition, sss* radiusPosition);
+                    Point radiusText = getCoord(ccc * radiusPosition, sss * radiusPosition);
 
 
                     Point zero = getCoord(0, 0);
-                    Point radiustangentbottom = getCoord(1*radius, -10);
-                    Point radiuszero = getCoord(1*radius, 0);
-                    Point radiustangenttop = getCoord(1*radius, 10);
+                    Point radiustangentbottom = getCoord(1 * radius, -10);
+                    Point radiuszero = getCoord(1 * radius, 0);
+                    Point radiustangenttop = getCoord(1 * radius, 10);
                     Point unitCircle = getCoord(truecos, truesin);
                     Point zCircle = getCoord(ccc, sss);
-                    Point zThetatext = getCoord(0.15*radius, 0.15*radius);
+                    Point zThetatext = getCoord(0.15 * radius, 0.15 * radius);
                     Point truex = getCoord(truecos, 0);
                     Point truey = getCoord(0, truesin);
                     Point zx = getCoord(ccc, 0);
                     Point zy = getCoord(0, sss);
-                    Point zArcLength = getCoord(1*radius, theta*radius);
+                    Point zArcLength = getCoord(1 * radius, theta * radius);
                     //Point zscsc = getCoord(scsc, 0);
 
-                    try
+                    if (Math.Abs(Math.Tan(theta)) < 100)
                     {
-                        g.DrawLine(Z2MinusPen, zCircle, zrealTan);
-                    }
-                    catch (Exception eeee)
-                    {
-
+                        try
+                        {
+                            g.DrawLine(Z2MinusPen, zCircle, zrealTan);
+                        }
+                        catch (Exception eeee)
+                        {
+                            if (displayerrors)
+                            {
+                                textBox3.Text += "\r\n004";
+                            }
+                        }
                     }
                     g.DrawString(" radius = " + string.Format("{0:0.00}", radius), drawFont, z3Brush, radiusText);
                     g.DrawLine(z2Pen, zero, zCircle);
@@ -595,29 +615,43 @@ namespace blank2
                                     }
                                     catch (Exception earc)
                                     {
-                                        MessageBox.Show(earc.Message);
+                                        if (displayerrors)
+                                        {
+                                            textBox3.Text += "\r\n005";
+                                        }
+                                        //MessageBox.Show(earc.Message);
                                     }
                                 }
                                 catch (Exception esweep)
                                 {
+                                    if (displayerrors)
+                                    {
+                                        textBox3.Text += "\r\n006";
+                                    }
                                     //MessageBox.Show(esweep.Message);
                                 }
                             }
                         }
                     }
 
-                    try
+                    if (Math.Abs(Math.Tan(theta)) < 100)
                     {
-                        g.FillEllipse(z2Brush, radiustangentbottom.X - 3, ztan.Y - 3, 6, 6);
-                        g.FillEllipse(z3Brush, ztanz.X - 3, ztanz.Y - 3, 6, 6);
-                        g.DrawLine(Z3MinusPen, zrealTan, ztanz);
-                        //g.DrawString("tan", drawFont, z3Brush, ztan);
-                        g.DrawString("tan(θ) = " + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush, ztanz.X, ztanz.Y - 14);
-                        text1stuff += "tan(theta) = " + string.Format("{0:0.0000}", Math.Tan(theta));
-                    }
-                    catch (Exception eeeee)
-                    {
-
+                        try
+                        {
+                            g.FillEllipse(z2Brush, radiustangentbottom.X - 3, ztan.Y - 3, 6, 6);
+                            g.FillEllipse(z3Brush, ztanz.X - 3, ztanz.Y - 3, 6, 6);
+                            g.DrawLine(Z3MinusPen, zrealTan, ztanz);
+                            //g.DrawString("tan", drawFont, z3Brush, ztan);
+                            g.DrawString("tan(θ) = " + string.Format("{0:0.00}", Math.Tan(theta)), drawFont, z3Brush, ztanz.X, ztanz.Y - 14);
+                            text1stuff += "tan(theta) = " + string.Format("{0:0.0000}", Math.Tan(theta));
+                        }
+                        catch (Exception eeeee)
+                        {
+                            if (displayerrors)
+                            {
+                                textBox3.Text += "tan(θ) = " + string.Format("{0:0.00}", Math.Tan(theta)) + " \r\n007";
+                            }
+                        }
                     }
                     g.FillEllipse(z2Brush, zCircle.X - 3, zCircle.Y - 3, 6, 6);
                     g.DrawArc(Z2MinusPen, boundArc, 0, (float)thetadegrees);
@@ -642,11 +676,18 @@ namespace blank2
                 }
                 catch (Exception eee)
                 {
-                    // MessageBox.Show(eee.Message);
+                    if (displayerrors)
+                    {
+                        textBox3.Text += "\r\n008";
+                    }
                 }
             }
             catch (Exception emain)
             {
+                if (displayerrors)
+                {
+                    textBox3.Text += "\r\n009";
+                }
                 // do nothing
             }
             pictureBox1.Image = b;
