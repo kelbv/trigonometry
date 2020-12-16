@@ -55,18 +55,18 @@ namespace blank2
             return getCoord(x, y, p, nud, 0);
         }
 
-            public Point getCoord(double x, double y,PictureBox p,NumericUpDown nud, int ytrans)
+        public Point getCoord(double x, double y, PictureBox p, NumericUpDown nud, int ytrans)
         {
             // what we need to do
             // give the method a x and y value, and get back the picturebox1 coords of that value
             // X 
             // zero is width / 2;
             // x is int(width/2  + x * dotsPerUnit)
-            int xcoord = (int)(p.Width / 2 + x * getDotsPerUnit(p,nud));
+            int xcoord = (int)(p.Width / 2 + x * getDotsPerUnit(p, nud));
             // Y
             // zero is height / 2;
             // y is zero - y * dotsPerUnit
-            int ycoord = (int)(p.Height / 2 - y * getDotsPerUnit(p, nud) + ytrans) ;
+            int ycoord = (int)(p.Height / 2 - y * getDotsPerUnit(p, nud) + ytrans);
             return new Point(xcoord, ycoord);
         }
 
