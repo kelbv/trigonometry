@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTheta = new System.Windows.Forms.Button();
             this.thetaUd = new System.Windows.Forms.NumericUpDown();
@@ -57,7 +57,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.cbShowErrors);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnTheta);
             this.panel1.Controls.Add(this.thetaUd);
@@ -76,16 +76,16 @@
             this.panel1.Size = new System.Drawing.Size(239, 675);
             this.panel1.TabIndex = 0;
             // 
-            // checkBox1
+            // cbShowErrors
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(96, 287);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "show errors";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.cbShowErrors.AutoSize = true;
+            this.cbShowErrors.Location = new System.Drawing.Point(96, 287);
+            this.cbShowErrors.Name = "cbShowErrors";
+            this.cbShowErrors.Size = new System.Drawing.Size(80, 17);
+            this.cbShowErrors.TabIndex = 14;
+            this.cbShowErrors.Text = "show errors";
+            this.cbShowErrors.UseVisualStyleBackColor = true;
+            this.cbShowErrors.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label2
             // 
@@ -334,7 +334,7 @@
         private System.Windows.Forms.NumericUpDown thetaUd;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbShowErrors;
     }
 }
 
