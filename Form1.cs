@@ -22,7 +22,8 @@ namespace blank2
             z1 = new complexnumber(0, 0);
             z3 = new complexnumber(1, 0);
             DoubleBuffered = true;
-            fillWhite(pictureBox1);
+            fillWhite(pictureBox1); 
+            fillColor(pictureBox2, System.Drawing.Color.LightGray);
             drawStuff(true);
         }
 
@@ -33,9 +34,14 @@ namespace blank2
                
         public void fillWhite(PictureBox p)
         {
+            fillColor(p, System.Drawing.Color.White);
+        }
+
+        public void fillColor(PictureBox p, Color c)
+        {
             Bitmap myb = new Bitmap(p.Width, p.Height);
             Graphics myg = Graphics.FromImage(myb);
-            myg.FillRectangle(new SolidBrush(System.Drawing.Color.White), 0, 0, p.Width, p.Height);
+            myg.FillRectangle(new SolidBrush(c), 0, 0, p.Width, p.Height);
             p.Image = myb;
             p.Refresh();
         }
@@ -442,6 +448,9 @@ namespace blank2
                 string text1stuff = "";
                 //double scsc = sss * ccc;
 
+                drawPoint(pictureBox2, picbox2ud, new complexnumber(theta, truesin), System.Drawing.Color.Red,cbKeep.Checked);
+                drawPoint(pictureBox2, picbox2ud, new complexnumber(theta, truecos), System.Drawing.Color.Blue,true);
+               
 
                 text1stuff += "   radius  = " + string.Format("{0:0.000}", radius) + "\r\n";
                 text1stuff += "    theta  = " + string.Format("{0:0.000}", thetadegrees * (-1)) + " (degrees)\r\n";
@@ -633,6 +642,45 @@ namespace blank2
                 pictureBox1.Image = b;
                 pictureBox1.Refresh();
             }
+        }
+
+
+        private void drawPoint(PictureBox p, NumericUpDown nud, complexnumber z, System.Drawing.Color c, bool keep)
+        {
+            int blob;
+            if (keep == false)
+            {
+                fillColor(pictureBox2, System.Drawing.Color.LightGray);
+                blob = 3;
+            }
+            else
+            {
+                blob = 3;
+            }
+            Bitmap b = new Bitmap(p.Image);
+            Graphics g = Graphics.FromImage(b);
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            Brush zbrush = new SolidBrush(c);
+            Point zp = getCoord(z.getReal(), z.getImag(), p, nud);
+            g.FillEllipse(zbrush, zp.X, zp.Y, blob, blob);
+            p.Image = b;
+            p.Refresh();
+
+        }
+
+        private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+            //double x = resolvePoint(e.X, e.Y, pictureBox2, picbox2ud).getReal();
+            //double y = resolvePoint(e.X, e.Y, pictureBox2, picbox2ud).getImag();
+            //MessageBox.Show(e.X + " , " + e.Y + "\r\n" +
+            //    x + " +  " + y + " i \r\n" +
+            //    getCoord(x, y, pictureBox2, picbox2ud).ToString());
+            fillColor(pictureBox2, System.Drawing.Color.LightGray);
+         }
+
+        private void pictureBox2_SizeChanged(object sender, EventArgs e)
+        {
+            fillColor(pictureBox2, System.Drawing.Color.LightGray);
         }
 
         public class complexnumber

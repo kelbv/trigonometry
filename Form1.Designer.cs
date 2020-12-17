@@ -47,16 +47,23 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.picbox2ud = new System.Windows.Forms.NumericUpDown();
+            this.cbKeep = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.thetaUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arcUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picbox2ud)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbKeep);
+            this.panel1.Controls.Add(this.picbox2ud);
             this.panel1.Controls.Add(this.cbShowErrors);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnTheta);
@@ -289,11 +296,62 @@
             this.textBox3.Size = new System.Drawing.Size(390, 129);
             this.textBox3.TabIndex = 2;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox2.Location = new System.Drawing.Point(239, 558);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(494, 117);
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.SizeChanged += new System.EventHandler(this.pictureBox2_SizeChanged);
+            this.pictureBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseClick);
+            // 
+            // picbox2ud
+            // 
+            this.picbox2ud.DecimalPlaces = 1;
+            this.picbox2ud.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.picbox2ud.Location = new System.Drawing.Point(18, 388);
+            this.picbox2ud.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.picbox2ud.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.picbox2ud.Name = "picbox2ud";
+            this.picbox2ud.Size = new System.Drawing.Size(120, 20);
+            this.picbox2ud.TabIndex = 15;
+            this.picbox2ud.Value = new decimal(new int[] {
+            13,
+            0,
+            0,
+            65536});
+            this.picbox2ud.Visible = false;
+            // 
+            // cbKeep
+            // 
+            this.cbKeep.AutoSize = true;
+            this.cbKeep.Location = new System.Drawing.Point(145, 389);
+            this.cbKeep.Name = "cbKeep";
+            this.cbKeep.Size = new System.Drawing.Size(50, 17);
+            this.cbKeep.TabIndex = 16;
+            this.cbKeep.Text = "keep";
+            this.cbKeep.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(733, 675);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
@@ -310,6 +368,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picbox2ud)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -335,6 +395,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.CheckBox cbShowErrors;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.NumericUpDown picbox2ud;
+        private System.Windows.Forms.CheckBox cbKeep;
     }
 }
 
