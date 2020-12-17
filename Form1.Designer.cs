@@ -30,6 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbDrawTan = new System.Windows.Forms.CheckBox();
+            this.cbDrawCosine = new System.Windows.Forms.CheckBox();
+            this.cbDrawSine = new System.Windows.Forms.CheckBox();
+            this.picbox2ud = new System.Windows.Forms.NumericUpDown();
             this.cbShowErrors = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTheta = new System.Windows.Forms.Button();
@@ -48,21 +53,20 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.picbox2ud = new System.Windows.Forms.NumericUpDown();
-            this.cbKeep = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picbox2ud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thetaUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arcUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picbox2ud)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.cbKeep);
+            this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.picbox2ud);
             this.panel1.Controls.Add(this.cbShowErrors);
             this.panel1.Controls.Add(this.label2);
@@ -82,6 +86,77 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(239, 675);
             this.panel1.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.cbDrawTan);
+            this.groupBox2.Controls.Add(this.cbDrawCosine);
+            this.groupBox2.Controls.Add(this.cbDrawSine);
+            this.groupBox2.Location = new System.Drawing.Point(18, 310);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(158, 98);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Draw Graphs";
+            // 
+            // cbDrawTan
+            // 
+            this.cbDrawTan.AutoSize = true;
+            this.cbDrawTan.Location = new System.Drawing.Point(10, 65);
+            this.cbDrawTan.Name = "cbDrawTan";
+            this.cbDrawTan.Size = new System.Drawing.Size(45, 17);
+            this.cbDrawTan.TabIndex = 16;
+            this.cbDrawTan.Text = "Tan";
+            this.cbDrawTan.UseVisualStyleBackColor = true;
+            // 
+            // cbDrawCosine
+            // 
+            this.cbDrawCosine.AutoSize = true;
+            this.cbDrawCosine.Location = new System.Drawing.Point(10, 42);
+            this.cbDrawCosine.Name = "cbDrawCosine";
+            this.cbDrawCosine.Size = new System.Drawing.Size(58, 17);
+            this.cbDrawCosine.TabIndex = 16;
+            this.cbDrawCosine.Text = "Cosine";
+            this.cbDrawCosine.UseVisualStyleBackColor = true;
+            // 
+            // cbDrawSine
+            // 
+            this.cbDrawSine.AutoSize = true;
+            this.cbDrawSine.Location = new System.Drawing.Point(10, 19);
+            this.cbDrawSine.Name = "cbDrawSine";
+            this.cbDrawSine.Size = new System.Drawing.Size(47, 17);
+            this.cbDrawSine.TabIndex = 16;
+            this.cbDrawSine.Text = "Sine";
+            this.cbDrawSine.UseVisualStyleBackColor = true;
+            // 
+            // picbox2ud
+            // 
+            this.picbox2ud.DecimalPlaces = 1;
+            this.picbox2ud.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.picbox2ud.Location = new System.Drawing.Point(19, 455);
+            this.picbox2ud.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.picbox2ud.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.picbox2ud.Name = "picbox2ud";
+            this.picbox2ud.Size = new System.Drawing.Size(120, 20);
+            this.picbox2ud.TabIndex = 15;
+            this.picbox2ud.Value = new decimal(new int[] {
+            13,
+            0,
+            0,
+            65536});
+            this.picbox2ud.Visible = false;
             // 
             // cbShowErrors
             // 
@@ -298,6 +373,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pictureBox2.Location = new System.Drawing.Point(239, 558);
             this.pictureBox2.Name = "pictureBox2";
@@ -306,45 +382,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.SizeChanged += new System.EventHandler(this.pictureBox2_SizeChanged);
             this.pictureBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseClick);
-            // 
-            // picbox2ud
-            // 
-            this.picbox2ud.DecimalPlaces = 1;
-            this.picbox2ud.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.picbox2ud.Location = new System.Drawing.Point(18, 388);
-            this.picbox2ud.Maximum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.picbox2ud.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.picbox2ud.Name = "picbox2ud";
-            this.picbox2ud.Size = new System.Drawing.Size(120, 20);
-            this.picbox2ud.TabIndex = 15;
-            this.picbox2ud.Value = new decimal(new int[] {
-            13,
-            0,
-            0,
-            65536});
-            this.picbox2ud.Visible = false;
-            // 
-            // cbKeep
-            // 
-            this.cbKeep.AutoSize = true;
-            this.cbKeep.Location = new System.Drawing.Point(145, 389);
-            this.cbKeep.Name = "cbKeep";
-            this.cbKeep.Size = new System.Drawing.Size(50, 17);
-            this.cbKeep.TabIndex = 16;
-            this.cbKeep.Text = "keep";
-            this.cbKeep.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -362,6 +399,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picbox2ud)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.thetaUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.arcUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxmodud)).EndInit();
@@ -369,7 +409,6 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picbox2ud)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -397,7 +436,10 @@
         private System.Windows.Forms.CheckBox cbShowErrors;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.NumericUpDown picbox2ud;
-        private System.Windows.Forms.CheckBox cbKeep;
+        private System.Windows.Forms.CheckBox cbDrawSine;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox cbDrawTan;
+        private System.Windows.Forms.CheckBox cbDrawCosine;
     }
 }
 

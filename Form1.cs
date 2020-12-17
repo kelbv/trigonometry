@@ -22,9 +22,10 @@ namespace blank2
             z1 = new complexnumber(0, 0);
             z3 = new complexnumber(1, 0);
             DoubleBuffered = true;
-            fillWhite(pictureBox1); 
-            fillColor(pictureBox2, System.Drawing.Color.LightGray);
+            fillWhite(pictureBox1);
             drawStuff(true);
+            fillColor(pictureBox2, System.Drawing.Color.White);
+
         }
 
         public double getDotsPerUnit(PictureBox p, NumericUpDown nud)
@@ -39,11 +40,19 @@ namespace blank2
 
         public void fillColor(PictureBox p, Color c)
         {
-            Bitmap myb = new Bitmap(p.Width, p.Height);
-            Graphics myg = Graphics.FromImage(myb);
-            myg.FillRectangle(new SolidBrush(c), 0, 0, p.Width, p.Height);
-            p.Image = myb;
-            p.Refresh();
+            try
+            {
+                Bitmap myb = new Bitmap(p.Width, p.Height);
+                Graphics myg = Graphics.FromImage(myb);
+                myg.FillRectangle(new SolidBrush(c), 0, 0, p.Width, p.Height);
+                p.Image = myb;
+                p.Refresh();
+            }
+            catch (Exception eee)
+            {
+                spam("in fillcolor: " + p.ToString(), eee);
+            }
+
         }
 
         public bool onGraph(int x, int y,PictureBox p)
@@ -320,11 +329,11 @@ namespace blank2
 
         public void drawStuff(bool doit)
         {
-            Bitmap b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            Graphics g = Graphics.FromImage(b);
-            double dotsPerUnit = getDotsPerUnit(pictureBox1, maxmodud);
             try
             {
+                Bitmap b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                Graphics g = Graphics.FromImage(b);
+                double dotsPerUnit = getDotsPerUnit(pictureBox1, maxmodud);
                 double radius = z3.getModulus();
                 //ytranslation = (int)((maxMod / 2) * dotsPerUnit);
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -448,9 +457,26 @@ namespace blank2
                 string text1stuff = "";
                 //double scsc = sss * ccc;
 
-                drawPoint(pictureBox2, picbox2ud, new complexnumber(theta, truesin), System.Drawing.Color.Red,cbKeep.Checked);
-                drawPoint(pictureBox2, picbox2ud, new complexnumber(theta, truecos), System.Drawing.Color.Blue,true);
-               
+                try
+                {
+                    if (cbDrawSine.Checked)
+                    {
+                        drawPoint(pictureBox2, picbox2ud, new complexnumber(theta, truesin), System.Drawing.Color.Red,false);
+                    }
+                    if (cbDrawCosine.Checked)
+                    {
+                        drawPoint(pictureBox2, picbox2ud, new complexnumber(theta, truecos), System.Drawing.Color.Blue, false);
+                    }
+                    if (cbDrawTan.Checked)
+                    {
+                        drawPoint(pictureBox2, picbox2ud, new complexnumber(theta, Math.Tan(theta)), System.Drawing.Color.Purple, false);
+                    }
+                }
+                catch (Exception eee)
+                {
+                    spam("drawing picbox2", eee);
+                }
+
 
                 text1stuff += "   radius  = " + string.Format("{0:0.000}", radius) + "\r\n";
                 text1stuff += "    theta  = " + string.Format("{0:0.000}", thetadegrees * (-1)) + " (degrees)\r\n";
@@ -628,6 +654,8 @@ namespace blank2
                         }
                     }
                 }
+                pictureBox1.Image = b;
+                pictureBox1.Refresh();
             }
             catch (Exception eee)
             {
@@ -639,30 +667,56 @@ namespace blank2
             }
             finally
             {
-                pictureBox1.Image = b;
-                pictureBox1.Refresh();
+
             }
         }
 
 
-        private void drawPoint(PictureBox p, NumericUpDown nud, complexnumber z, System.Drawing.Color c, bool keep)
+        private void drawPoint(PictureBox p, NumericUpDown nud, complexnumber z, System.Drawing.Color c,bool clear)
         {
-            int blob;
-            if (keep == false)
+            int blob = 2;
+            Bitmap b;
+            if (clear)
             {
-                fillColor(pictureBox2, System.Drawing.Color.LightGray);
-                blob = 3;
+                b = new Bitmap(p.Width, p.Height);
             }
             else
             {
-                blob = 3;
+                b = new Bitmap(p.Image);
             }
-            Bitmap b = new Bitmap(p.Image);
             Graphics g = Graphics.FromImage(b);
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            Pen graph = new Pen(System.Drawing.Color.Black);
             Brush zbrush = new SolidBrush(c);
             Point zp = getCoord(z.getReal(), z.getImag(), p, nud);
-            g.FillEllipse(zbrush, zp.X, zp.Y, blob, blob);
+            Point lefttop = getCoord(0, 1, p, nud);
+
+            Point ninetybottom = getCoord(Math.PI /2, -1, p, nud);
+            Point oneeightybottom = getCoord(Math.PI, -1, p, nud);
+            Point twoseventybottom = getCoord(3 * Math.PI/2, -1, p, nud);
+            Point rightzero = getCoord(Math.PI * 2, 0, p, nud);
+            Point rightbottom = getCoord(Math.PI * 2, -1, p, nud);
+
+            Size outersize = new Size(rightbottom.X - lefttop.X, rightbottom.Y - lefttop.Y);
+            Size zerosize = new Size(rightzero.X - lefttop.X, rightzero.Y - lefttop.Y);
+            Size ninetysize = new Size(ninetybottom.X - lefttop.X, ninetybottom.Y - lefttop.Y);
+            Size oneeightysize = new Size(oneeightybottom.X - lefttop.X, oneeightybottom.Y - lefttop.Y);
+            Size twoseventysize = new Size(twoseventybottom.X - lefttop.X, twoseventybottom.Y - lefttop.Y);
+
+            Rectangle outer = new Rectangle(lefttop, outersize);
+            Rectangle zero = new Rectangle(lefttop, zerosize);
+            Rectangle ninety = new Rectangle(lefttop, ninetysize);
+            Rectangle oneeighty = new Rectangle(lefttop, oneeightysize);
+            Rectangle twoseventy = new Rectangle(lefttop, twoseventysize);
+
+            g.DrawRectangle(graph, outer);
+            g.DrawRectangle(graph, zero);
+            g.DrawRectangle(graph, ninety);
+            g.DrawRectangle(graph, oneeighty);
+            g.DrawRectangle(graph, twoseventy);
+
+
+            g.FillEllipse(zbrush, zp.X-blob, zp.Y-blob, blob*2, blob*2);
             p.Image = b;
             p.Refresh();
 
@@ -670,17 +724,12 @@ namespace blank2
 
         private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
         {
-            //double x = resolvePoint(e.X, e.Y, pictureBox2, picbox2ud).getReal();
-            //double y = resolvePoint(e.X, e.Y, pictureBox2, picbox2ud).getImag();
-            //MessageBox.Show(e.X + " , " + e.Y + "\r\n" +
-            //    x + " +  " + y + " i \r\n" +
-            //    getCoord(x, y, pictureBox2, picbox2ud).ToString());
-            fillColor(pictureBox2, System.Drawing.Color.LightGray);
+            drawPoint(pictureBox2, picbox2ud, new complexnumber(-1, -1), System.Drawing.Color.White,true);
          }
 
         private void pictureBox2_SizeChanged(object sender, EventArgs e)
         {
-            fillColor(pictureBox2, System.Drawing.Color.LightGray);
+            fillColor(pictureBox2, System.Drawing.Color.White);
         }
 
         public class complexnumber
